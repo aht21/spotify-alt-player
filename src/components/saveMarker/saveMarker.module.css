@@ -1,22 +1,25 @@
 .save_button {
-    padding: 0;
-    display: flex;
-    margin-left: 5px;
+  padding: 0;
+  display: flex;
+  margin-left: 5px;
+  transition: 0.3s;
 }
 
-.current_track__save:hover .save_image {
-    opacity: 1;
-    transform: scale(1.1);
+.save_button:hover {
+  transform: scale(1.1);
 }
 
 .save_image {
-    height: 1.6rem;
-    opacity: 0.72;
-    transition: 0.3s;
+  height: 1.6rem;
+  opacity: 0.72;
+  transition: 0.3s;
+}
+
+.save_button:hover .save_image {
+  opacity: 1;
 }
 
 .saved_image {
-    height: 1.5rem;
-    opacity: 1;
-    transition: 0.3s;
+  height: 1.6rem;
+  opacity: 1;
 }

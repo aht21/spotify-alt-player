@@ -1,0 +1,48 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.prev,
+.next {
+  height: fit-content;
+  display: flex;
+  padding: 0;
+  opacity: 0.72;
+  transition: opacity 0.3s;
+}
+
+.prev:hover,
+.next:hover {
+  opacity: 1;
+}
+
+.prev_icon,
+.next_icon {
+  height: 1.4rem;
+}
+
+.prev_icon {
+  transform: scaleX(-1);
+}
+
+.pause {
+  background-color: rgba(255, 255, 255, 0.96);
+  border-radius: 4rem;
+  padding: 0.5rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+  opacity: 0.86;
+}
+
+.pause:hover {
+  transform: scale(1.06);
+  opacity: 1;
+}
+
+.pause_icon {
+  height: 1.4rem;
+}

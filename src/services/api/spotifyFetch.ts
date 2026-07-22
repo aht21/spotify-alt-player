@@ -17,11 +17,9 @@ export async function spotifyFetch<T>(endpoint: string, init?: RequestInit): Pro
     throw new Error(await response.text());
   }
 
-  const text = await response.text();
-
-  if (!text) {
-    return undefined as T;
+  if (!response.headers.get("content-type")) {
+    return null as T;
   }
 
-  return JSON.parse(text) as T;
+  return response.json() as Promise<T>;
 }

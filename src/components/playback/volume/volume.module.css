@@ -1,0 +1,60 @@
+.wrapper {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.mute {
+  padding: 0;
+  display: flex;
+  opacity: 0.72;
+  transition: opacity 0.3s;
+}
+
+.mute:hover {
+  opacity: 1;
+}
+
+.icon {
+  height: 1.4rem;
+}
+
+.range {
+  width: 7rem;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 0.3rem;
+  border-radius: 0.2rem;
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -0.25rem;
+  background: #fff;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  display: none;
+}
+
+.range:hover::-webkit-slider-thumb {
+  display: block;
+}
+
+.range:disabled:hover::-webkit-slider-thumb {
+  display: none;
+}
+
+.range::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.86) 0%,
+    rgba(255, 255, 255, 0.86) var(--progress),
+    rgba(255, 255, 255, 0.3) var(--progress),
+    rgba(255, 255, 255, 0.3) 100%
+  );
+}

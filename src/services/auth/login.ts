@@ -20,6 +20,7 @@ const base64encode = (input: ArrayBuffer) => {
 const SPOTIFY_SCOPES = [
   "user-read-private",
   "user-read-playback-state",
+  "user-modify-playback-state",
   "user-library-read",
   "user-library-modify",
   "user-follow-read",

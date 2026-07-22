@@ -16,23 +16,67 @@ const SaveMarker = ({ uri }: Props) => {
   const queryClient = useQueryClient();
 
   const { isPending, error, data } = useQuery({
-    queryKey: ["track-saved", uri],
+    queryKey: ["track-save", uri],
     queryFn: () => {
       return fetchLibraryContains(uri);
     },
   });
 
+  // optimistic save
   const saveMutation = useMutation({
     mutationFn: () => fetchLibrarySave(uri),
-    onSuccess: () => {
-      queryClient.setQueryData(["track-saved", uri], [true]);
+
+    onMutate: async () => {
+      await queryClient.cancelQueries({
+        queryKey: ["track-save", uri],
+      });
+
+      const previous = queryClient.getQueryData<boolean[]>(["track-saved", uri]);
+
+      queryClient.setQueryData(["track-save", uri], [true]);
+
+      return { previous };
+    },
+
+    onError: (_error, _variables, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(["track-save", uri], context.previous);
+      }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["track-save", uri],
+      });
     },
   });
 
+  // optimistic remove
   const removeMutation = useMutation({
     mutationFn: () => fetchLibraryRemove(uri),
-    onSuccess: () => {
-      queryClient.setQueryData(["track-saved", uri], [false]);
+
+    onMutate: async () => {
+      await queryClient.cancelQueries({
+        queryKey: ["track-save", uri],
+      });
+
+      const previous = queryClient.getQueryData<boolean[]>(["track-saved", uri]);
+
+      queryClient.setQueryData(["track-save", uri], [false]);
+
+      return { previous };
+    },
+
+    onError: (_error, _variables, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(["track-save", uri], context.previous);
+      }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["track-save", uri],
+      });
     },
   });
 
@@ -46,9 +90,12 @@ const SaveMarker = ({ uri }: Props) => {
     }
   };
 
-  if (isPending) return <div>Загрузка...</div>;
+  if (isPending) return;
 
-  if (error || data?.length === 0) return <div>Ошибка</div>;
+  if (error || data?.length === 0) {
+    console.error(error);
+    return;
+  }
 
   return (
     <button
