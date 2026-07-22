@@ -17,7 +17,16 @@ const base64encode = (input: ArrayBuffer) => {
     .replace(/\//g, "_");
 };
 
-const SPOTIFY_SCOPES = ["user-read-private", "user-read-email"].join(" ");
+const SPOTIFY_SCOPES = [
+  "user-read-private",
+  "user-read-playback-state",
+  "user-library-read",
+  "user-library-modify",
+  "user-follow-read",
+  "user-follow-modify",
+  "playlist-read-private",
+  "playlist-modify-public",
+].join(" ");
 
 export async function login() {
   const codeVerifier = generateRandomString(64);

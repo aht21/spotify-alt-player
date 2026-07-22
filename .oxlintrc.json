@@ -4,7 +4,6 @@
   "rules": {
     "react/rules-of-hooks": "error"
   },
-  // disable only export component for routes
   "overrides": [
     {
       "files": ["src/routes/**/*.{ts,tsx}"],

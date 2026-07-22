@@ -1,5 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import Header from "../../components/header";
+import Playback from "../../components/playback";
+import styles from "./index.module.css";
 
 export const Route = createFileRoute("/_authenticated/")({
   component: Index,
@@ -7,9 +9,13 @@ export const Route = createFileRoute("/_authenticated/")({
 
 function Index() {
   return (
-    <div>
+    <div className={styles.app}>
       <Header />
-      <Link to="/preview">Preview</Link>
+      <div className={styles.app_content}>
+        <div className={styles.app_content_first}>first</div>
+        <div className={styles.app_content_second}>second</div>
+      </div>
+      <Playback />
     </div>
   );
 }
