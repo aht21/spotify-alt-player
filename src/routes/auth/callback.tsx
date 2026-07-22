@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { exchangeAuthorizationCode, saveTokens } from "../../auth";
+import { exchangeAuthorizationCode, saveTokens } from "../../services/auth";
 
 export const Route = createFileRoute("/auth/callback")({
   validateSearch: (search: Record<string, unknown>) => ({

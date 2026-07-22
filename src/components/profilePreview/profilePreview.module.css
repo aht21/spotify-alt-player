@@ -1,0 +1,113 @@
+.user_preview_loading {
+  height: 2.5rem;
+  border-radius: 1.5rem;
+  width: 3.3rem;
+  background: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.12) 8%,
+    rgba(255, 255, 255, 0.16) 18%,
+    rgba(255, 255, 255, 0.12) 33%
+  );
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+.user_preview_wrapper {
+  position: relative;
+  font-size: 0.875rem;
+}
+
+.user_preview {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  height: 2.5rem;
+  padding-right: 1rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: saturate(1.8) blur(15px);
+  border-radius: 1.5rem;
+  transition: background-color 0.3s;
+}
+
+.user_preview_open {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.user_image {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.12) 8%,
+    rgba(255, 255, 255, 0.16) 18%,
+    rgba(255, 255, 255, 0.12) 33%
+  );
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+.user_image_loading {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.12) 8%,
+    rgba(255, 255, 255, 0.16) 18%,
+    rgba(255, 255, 255, 0.12) 33%
+  );
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+.menu {
+  position: absolute;
+  top: 2.9rem;
+  right: 0;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.04);
+  backdrop-filter: saturate(1.8) blur(15px);
+  width: fit-content;
+  display: none;
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.2);
+}
+
+.menu_open {
+  display: block;
+}
+
+.menu_item {
+  width: 100%;
+  min-width: 8.5rem;
+  padding: 0.5em;
+  text-align: start;
+  border-radius: 0.3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.menu_item_link {
+  box-sizing: border-box;
+}
+
+.menu_item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.menu_item_icon {
+  height: 1rem;
+}
+
+.menu_divider {
+  height: 1px;
+  width: 100%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.08);
+}

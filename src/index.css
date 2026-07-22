@@ -1,3 +1,19 @@
 body {
   margin: 0;
+  background-color: #121212;
+  color: #fff;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+button {
+  color: inherit;
+  cursor: pointer;
+  font-size: inherit;
+  border: inherit;
+  background-color: transparent;
 }

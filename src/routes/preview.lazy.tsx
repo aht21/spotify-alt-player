@@ -1,5 +1,5 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { login } from "../auth";
+import { login } from "../services/auth";
 
 export const Route = createLazyFileRoute("/preview")({
   component: Preview,

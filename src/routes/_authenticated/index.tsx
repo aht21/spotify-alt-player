@@ -1,14 +1,15 @@
-import { createFileRoute, Link } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router";
+import Header from "../../components/header";
 
 export const Route = createFileRoute("/_authenticated/")({
-    component: Index,
-})
+  component: Index,
+});
 
-function Index () {
-    return (
+function Index() {
+  return (
     <div>
-        <h1>Index</h1>
-        <Link to="/preview">Preview</Link>
+      <Header />
+      <Link to="/preview">Preview</Link>
     </div>
-)
+  );
 }

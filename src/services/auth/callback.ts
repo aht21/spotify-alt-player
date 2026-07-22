@@ -6,9 +6,7 @@ interface TokenResponse {
   scope: string;
 }
 
-export async function exchangeAuthorizationCode(
-  code: string,
-): Promise<TokenResponse> {
+export async function exchangeAuthorizationCode(code: string): Promise<TokenResponse> {
   const codeVerifier = localStorage.getItem("code_verifier");
 
   if (!codeVerifier) {
