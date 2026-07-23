@@ -108,9 +108,9 @@ const Controllers = ({ deviceId, isPlaying }: Props) => {
       </button>
       <button disabled={isMutating} className={styles.pause} onClick={onPlayPause}>
         {isPlaying ? (
-          <img src={pauseIcon} className={styles.pause_icon} alt="Pause" />
+          <img src={pauseIcon} className={styles.pause_icon} alt="pause" />
         ) : (
-          <img src={playIcon} className={styles.pause_icon} alt="Play" />
+          <img src={playIcon} className={styles.pause_icon} alt="play" />
         )}
       </button>
       <button disabled={isMutating} className={styles.next} onClick={() => nextMutation.mutate()}>

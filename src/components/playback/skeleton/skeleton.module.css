@@ -1,17 +1,67 @@
 .player {
-  margin-top: 0.5rem;
   height: 5rem;
-  background-color: rgba(255, 255, 255, 0.08);
-  border-radius: 0.5rem;
+  width: 100%;
+  max-width: 62rem;
+  margin: 0 2rem;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
 }
 
 .player_inner {
+  height: calc(100% - 1rem);
+  padding: 0.5rem;
+
   display: grid;
   grid-template-columns: 4fr 5fr 4fr;
   align-items: center;
   gap: 2rem;
-  padding: 0.5rem;
-  height: calc(100% - 1rem);
+}
+
+.skeleton_item {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.12) 8%,
+    rgba(255, 255, 255, 0.16) 18%,
+    rgba(255, 255, 255, 0.12) 33%
+  );
+
+  background-size: 200% 100%;
+  animation: shine 1.5s linear infinite;
+}
+
+.current_track {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  min-width: 10rem;
+  max-width: 35rem;
+}
+
+.image {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.6rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.name {
+  width: 9rem;
+  height: 0.9rem;
+  border-radius: 0.3rem;
+}
+
+.artist {
+  width: 6rem;
+  height: 0.75rem;
+  border-radius: 0.3rem;
 }
 
 .controllers_wrapper {
@@ -21,70 +71,55 @@
   gap: 0.5rem;
 }
 
-.playback_settings {
+.controllers {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.skip {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.3rem;
+}
+
+.pause {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+}
+
+.range {
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 0.3rem;
+}
+
+.settings {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 0.8rem;
 }
 
-.current_track_wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  max-width: 35rem;
-  min-width: 10rem;
-}
-
-.image_loading {
-  height: 4rem;
-  width: 4rem;
-  background: rgba(255, 255, 255, 0.08);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.12) 8%,
-    rgba(255, 255, 255, 0.16) 18%,
-    rgba(255, 255, 255, 0.12) 33%
-  );
-  background-size: 200% 100%;
+.icon {
+  width: 1.6rem;
+  height: 1.6rem;
   border-radius: 0.3rem;
-  animation: 1.5s shine linear infinite;
 }
 
-.info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  overflow: hidden;
-  position: relative;
-}
-
-.name_loading {
-  height: 1rem;
-  width: 8rem;
-  background: rgba(255, 255, 255, 0.08);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.12) 8%,
-    rgba(255, 255, 255, 0.16) 18%,
-    rgba(255, 255, 255, 0.12) 33%
-  );
-  background-size: 200% 100%;
+.volume {
+  width: 7rem;
+  height: 0.6rem;
   border-radius: 0.3rem;
-  animation: 1.5s shine linear infinite;
 }
 
-.artists_loading {
-  height: 0.875rem;
-  width: 8rem;
-  background: rgba(255, 255, 255, 0.08);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.12) 8%,
-    rgba(255, 255, 255, 0.16) 18%,
-    rgba(255, 255, 255, 0.12) 33%
-  );
-  background-size: 200% 100%;
-  border-radius: 0.3rem;
-  animation: 1.5s shine linear infinite;
+@keyframes shine {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
 }

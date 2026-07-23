@@ -90,7 +90,12 @@ const SaveMarker = ({ uri }: Props) => {
     }
   };
 
-  if (isPending) return;
+  if (isPending)
+    return (
+      <button className={styles.save_button} disabled={true}>
+        <img src={plusIcon} alt="" className={styles.save_image} />
+      </button>
+    );
 
   if (error || data?.length === 0) {
     console.error(error);

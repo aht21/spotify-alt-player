@@ -21,6 +21,7 @@ const Playback = () => {
     return <Skeleton />;
   }
 
+  // TODO: поменять надпись (возможно проблема с тем что не выбран device воспроизведения)
   if (data == undefined || isError) {
     return (
       <div className={styles.player}>
@@ -29,21 +30,36 @@ const Playback = () => {
     );
   }
 
-  // TODO: поменять надпись (возможно проблема с тем что не выбран device воспроизведения)
-  if (data?.item === null || data?.progress_ms === null) return <div>Трек не найден</div>;
+  if (data?.progress_ms === null) return <div>Трек не найден</div>;
 
   return (
     <div className={styles.player}>
       <div className={styles.player_inner}>
-        <CurrentTrack
-          name={data.item.name}
-          artists={data.item.artists}
-          imageSrc={data.item.album.images[1].url}
-          uri={data.item.uri}
-        />
+        {data?.item === null ? (
+          <div className={styles.no_track}>
+            <div className={styles.no_track_image}></div>
+            <span className={styles.no_track_text}>Track not found</span>
+          </div>
+        ) : (
+          <CurrentTrack
+            name={data.item.name}
+            artists={data.item.artists}
+            imageSrc={data.item.album.images[1].url}
+            uri={data.item.uri}
+          />
+        )}
+
         <div className={styles.controllers_wrapper}>
           <Controllers deviceId={data.device.id} isPlaying={data.is_playing} />
-          <Range progressMs={data.progress_ms} durationMs={data.item.duration_ms} />
+          {data?.item === null ? (
+            <div className={styles.no_track_range}></div>
+          ) : (
+            <Range
+              progressMs={data.progress_ms}
+              durationMs={data.item.duration_ms}
+              isPlaying={data.is_playing}
+            />
+          )}
         </div>
         <div className={styles.playback_settings}>
           <Device isPlaying={data.is_playing} />
