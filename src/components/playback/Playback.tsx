@@ -3,9 +3,10 @@ import { fetchPlaybackState } from "../../services/api/player.ts";
 import Skeleton from "./skeleton";
 import CurrentTrack from "./currentTrack";
 import Controllers from "./controllers";
+import Range from "./range";
 import Device from "./device";
-import styles from "./playback.module.css";
 import Volume from "./volume";
+import styles from "./playback.module.css";
 
 const Playback = () => {
   const { data, isLoading, isError } = useQuery({
@@ -29,7 +30,7 @@ const Playback = () => {
   }
 
   // TODO: поменять надпись (возможно проблема с тем что не выбран device воспроизведения)
-  if (data?.item === null) return <div>Трек не найден</div>;
+  if (data?.item === null || data?.progress_ms === null) return <div>Трек не найден</div>;
 
   return (
     <div className={styles.player}>
@@ -42,7 +43,7 @@ const Playback = () => {
         />
         <div className={styles.controllers_wrapper}>
           <Controllers deviceId={data.device.id} isPlaying={data.is_playing} />
-          {/* <PlaybackRange /> */}
+          <Range progressMs={data.progress_ms} durationMs={data.item.duration_ms} />
         </div>
         <div className={styles.playback_settings}>
           <Device isPlaying={data.is_playing} />

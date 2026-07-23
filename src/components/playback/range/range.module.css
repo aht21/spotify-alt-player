@@ -1,29 +1,26 @@
-.wrapper {
+.overflow {
+  width: 100%;
+  justify-content: center;
   display: flex;
-  gap: 0.3rem;
+  align-items: center;
+  gap: 0.4rem;
 }
 
-.mute {
-  padding: 0;
-  display: flex;
-  opacity: 0.72;
-  transition: opacity 0.3s;
-}
-
-.mute:hover {
-  opacity: 1;
-}
-
-.icon {
-  height: 1.4rem;
+.number {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.75rem;
 }
 
 .range {
-  width: 7rem;
+  width: 100%;
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
   cursor: pointer;
+  max-width: 27rem;
+  display: flex;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .range::-webkit-slider-runnable-track {

@@ -16,13 +16,13 @@ export interface UserProfile {
   };
   href: string;
   id: string;
-  images: SpotifyImage[];
+  images: Image[];
   product: "free" | "premium" | "open";
   type: "user";
   uri: string;
 }
 
-export interface SpotifyImage {
+export interface Image {
   url: string;
   width: number | null;
   height: number | null;

@@ -26,3 +26,10 @@ export function fetchPlaybackPause() {
 export function fetchPlaybackSetVolume(value: number) {
   return spotifyFetch(`/me/player/volume?volume_percent=${value}`, { method: "PUT" });
 }
+
+export function fetchPlayCollection(profileId: string) {
+  return spotifyFetch("/me/player/play", {
+    method: "PUT",
+    body: JSON.stringify({ context_uri: `spotify:user:${profileId}:collection` }),
+  });
+}

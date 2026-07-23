@@ -1,0 +1,44 @@
+.wrapper {
+  padding: 1rem;
+}
+
+.header {
+  margin: 0;
+}
+
+.list {
+  margin-top: 1.6rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.item_image {
+  width: 12rem;
+  border-radius: 0.6rem;
+}
+
+.item_name {
+  margin-left: 0.2rem;
+  font-size: 1.12rem;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.item:hover .item_name {
+  opacity: 1;
+}

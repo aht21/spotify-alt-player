@@ -1,0 +1,68 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.image {
+  position: relative;
+  width: 17rem;
+  height: 12rem;
+  background: #4a00ff;
+  background: linear-gradient(135deg, rgba(74, 0, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  border-radius: 0.6rem;
+}
+
+.card:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.name {
+  margin-left: 0.2rem;
+  font-size: 1.12rem;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.card:hover .name {
+  opacity: 1;
+}
+
+.play_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  padding: 0.8rem;
+  position: absolute;
+  bottom: 0.8rem;
+  right: 0.8rem;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  opacity: 0;
+  transform: translateY(8px) scale(1);
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.play_button_image {
+  height: 100%;
+}
+
+.card:hover .play_button {
+  opacity: 0.9;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.card .play_button:hover {
+  opacity: 1;
+  transform: translateY(0) scale(1.1);
+}

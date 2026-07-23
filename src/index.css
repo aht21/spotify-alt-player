@@ -1,4 +1,6 @@
 :root {
+  --primary-color: #1db954; /* #fcfd6c */
+
   --duration_artist: 2.4s;
   --duration_track: 2.4s;
   --offset_artist: 0;

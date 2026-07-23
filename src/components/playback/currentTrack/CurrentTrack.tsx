@@ -31,9 +31,10 @@ const CurrentTrack = ({ name, artists, imageSrc, uri }: Props) => {
           className={`${styles.artists_list}`}
           ref={artistRef}
         >
-          {artists.map((artist) => (
+          {artists.map((artist, index) => (
             <span className={styles.artist_item} key={artist.id}>
               {artist.name}
+              {index < artists.length - 1 && ","}
             </span>
           ))}
         </div>

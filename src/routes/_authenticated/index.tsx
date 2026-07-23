@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Header from "../../components/header";
+import Brand from "../../components/brand";
+import ProfilePreview from "../../components/profilePreview";
+import UserStuff from "../../components/userStuff";
+import Playlists from "../../components/playlists";
 import Playback from "../../components/playback";
 import styles from "./index.module.css";
 
@@ -10,12 +13,19 @@ export const Route = createFileRoute("/_authenticated/")({
 function Index() {
   return (
     <div className={styles.app}>
-      <Header />
-      <div className={styles.app_content}>
-        <div className={styles.app_content_first}>first</div>
-        <div className={styles.app_content_second}>second</div>
+      <div className={styles.brand_wrapper}>
+        <Brand />
       </div>
-      <Playback />
+      <div className={styles.profile_preview_wrapper}>
+        <ProfilePreview />
+      </div>
+      <div className={styles.app_content}>
+        <UserStuff />
+        <Playlists />
+      </div>
+      <div className={styles.playback_wrapper}>
+        <Playback />
+      </div>
     </div>
   );
 }
