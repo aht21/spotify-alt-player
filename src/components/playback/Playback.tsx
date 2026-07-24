@@ -33,7 +33,7 @@ const Playback = () => {
   if (data?.progress_ms === null) return <div>Трек не найден</div>;
 
   return (
-    <div className={styles.player}>
+    <div className={styles.player} id="player">
       <div className={styles.player_inner}>
         {data?.item === null ? (
           <div className={styles.no_track}>

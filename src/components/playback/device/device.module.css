@@ -1,3 +1,14 @@
+.loading {
+  padding: 0;
+  height: fit-content;
+  display: flex;
+}
+
+.loading_icon {
+  height: 1.6rem;
+  opacity: 0.72;
+}
+
 .preview {
   padding: 0;
   height: fit-content;
@@ -16,21 +27,30 @@
 
 .menu {
   position: absolute;
-  bottom: 4.5rem;
-  right: 1rem;
-  display: none;
-  background-color: rgba(255, 255, 255, 0.04);
+  right: 0;
+  bottom: 5.3rem;
+  min-width: 12.5rem;
   padding: 0.5rem;
-  width: 14rem;
-  border-radius: 0.5rem;
-  backdrop-filter: saturate(1.8) blur(15px);
-  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  backdrop-filter: blur(var(--background-blur));
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
   font-size: 0.875rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(0.5rem);
+  transition: 0.2s;
+  z-index: 10;
 }
 
 .menu_open {
-  display: flex;
-  flex-direction: column;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .header {
@@ -46,24 +66,9 @@
   list-style: none;
 }
 
-.loading {
-  width: 100%;
-  height: 2rem;
-  background: rgba(255, 255, 255, 0.08);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.12) 8%,
-    rgba(255, 255, 255, 0.16) 18%,
-    rgba(255, 255, 255, 0.12) 33%
-  );
-  background-size: 200% 100%;
-  border-radius: 0.3rem;
-  animation: 1.5s shine linear infinite;
-}
-
 .button {
   padding: 0.5rem 0.7rem 0.5rem 0.5rem;
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   transition: background-color 0.3s;
   display: flex;
   gap: 0.6rem;
@@ -93,7 +98,7 @@
 }
 
 .button_active > .button_point::before {
-  background-color: #1db954;
+  background-color: var(--primary-color);
   animation: playing 1s infinite alternate ease-out;
 }
 

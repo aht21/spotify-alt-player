@@ -45,7 +45,7 @@ const ProfilePreview = () => {
   };
 
   if (isLoading) return <div className={styles.user_preview_loading}></div>;
-  if (isError || data === undefined) return <div>Ошибка</div>;
+  if (isError || data === undefined) return;
 
   return (
     <div className={styles.user_preview_wrapper}>
