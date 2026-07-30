@@ -1,3 +1,5 @@
+import type { Track } from ".";
+
 export interface PlaybackState {
   device: PlaybackDevice;
   repeat_state: "off" | "track" | "context";
@@ -11,7 +13,7 @@ export interface PlaybackState {
   actions: PlaybackActions;
 }
 
-export interface PlaybackDevice {
+interface PlaybackDevice {
   id: string;
   is_active: boolean;
   is_private_session: boolean;
@@ -22,7 +24,7 @@ export interface PlaybackDevice {
   supports_volume: boolean;
 }
 
-export interface PlaybackContext {
+interface PlaybackContext {
   type: string;
   href: string;
   external_urls: {
@@ -31,7 +33,7 @@ export interface PlaybackContext {
   uri: string;
 }
 
-export interface PlaybackActions {
+interface PlaybackActions {
   disallows?: {
     interrupting_playback?: boolean;
     pausing?: boolean;
@@ -44,63 +46,4 @@ export interface PlaybackActions {
     toggling_repeat_track?: boolean;
     transferring_playback?: boolean;
   };
-}
-
-export interface Track {
-  album: Album;
-  artists: Artist[];
-  available_markets: string[];
-  disc_number: number;
-  duration_ms: number;
-  explicit: boolean;
-  external_ids: {
-    isrc: string;
-  };
-  external_urls: {
-    spotify: string;
-  };
-  href: string;
-  id: string;
-  is_local: boolean;
-  name: string;
-  popularity: number;
-  preview_url: string | null;
-  track_number: number;
-  type: "track";
-  uri: string;
-}
-
-export interface Album {
-  album_type: string;
-  artists: Artist[];
-  available_markets: string[];
-  external_urls: {
-    spotify: string;
-  };
-  href: string;
-  id: string;
-  images: SpotifyImage[];
-  name: string;
-  release_date: string;
-  release_date_precision: string;
-  total_tracks: number;
-  type: "album";
-  uri: string;
-}
-
-export interface Artist {
-  external_urls: {
-    spotify: string;
-  };
-  href: string;
-  id: string;
-  name: string;
-  type: "artist";
-  uri: string;
-}
-
-export interface SpotifyImage {
-  url: string;
-  height: number | null;
-  width: number | null;
 }

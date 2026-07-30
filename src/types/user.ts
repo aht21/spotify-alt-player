@@ -1,3 +1,5 @@
+import type { Image } from ".";
+
 export interface UserProfile {
   account_id: string;
   country: string;
@@ -20,10 +22,4 @@ export interface UserProfile {
   product: "free" | "premium" | "open";
   type: "user";
   uri: string;
-}
-
-export interface Image {
-  url: string;
-  width: number | null;
-  height: number | null;
 }

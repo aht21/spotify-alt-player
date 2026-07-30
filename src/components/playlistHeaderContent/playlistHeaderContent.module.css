@@ -1,0 +1,95 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.controllers {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.button_move {
+  display: flex;
+  border-radius: 1.1rem;
+  padding: 0.35rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.button_move:disabled {
+  opacity: 0.6;
+}
+
+.button_back_image {
+  opacity: 0.8;
+}
+
+.button_front_image {
+  opacity: 0.8;
+  transform: scaleX(-1);
+}
+
+.label {
+  display: flex;
+  gap: 2.2rem;
+}
+
+.cover {
+  width: 14rem;
+  height: 14rem;
+  border-radius: 1rem;
+  background: #4a00ff;
+  background: linear-gradient(135deg, rgba(74, 0, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.type {
+  opacity: 0.6;
+  letter-spacing: 0.1rem;
+  font-weight: 300;
+}
+
+.name {
+  font-family: "Montserrat", sans-serif;
+  font-size: 4.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.contributors {
+  font-weight: 500;
+  display: flex;
+  gap: 1rem;
+}
+
+.contributor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.6rem 0.3rem 0.3rem;
+  border-radius: 1.2rem;
+  background-color: var(--background-color);
+  backdrop-filter: blur(var(--background-blur));
+  transition: 0.3s;
+}
+
+.contributor:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.contributor_avatar {
+  height: 1.6rem;
+  border-radius: 1rem;
+}
+
+.info {
+  opacity: 0.6;
+  font-weight: 300;
+}

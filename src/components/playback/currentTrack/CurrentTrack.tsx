@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import type { Artist } from "../../../types/player.ts";
+import type { Artist } from "../../../types";
 import SaveMarker from "../../saveMarker/SaveMarker.tsx";
 import styles from "./currentTrack.module.css";
 

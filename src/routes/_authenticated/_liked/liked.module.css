@@ -1,0 +1,13 @@
+.saved {
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.inner {
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}

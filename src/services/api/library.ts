@@ -1,4 +1,4 @@
-import type { LibraryContains } from "../../types/library.ts";
+import type { LibraryContains, LikedTracks } from "../../types/library.ts";
 import { spotifyFetch } from "./spotifyFetch";
 
 export function fetchLibraryContains(uri: string) {
@@ -11,4 +11,8 @@ export function fetchLibrarySave(uri: string) {
 
 export function fetchLibraryRemove(uri: string) {
   return spotifyFetch(`/me/library?uris=${uri}`, { method: "DELETE" });
+}
+
+export function fetchUserLikedTracks(limit: number, offset: number) {
+  return spotifyFetch<LikedTracks>(`/me/tracks?limit=${limit}&offset=${offset}`);
 }
