@@ -1,4 +1,4 @@
-import type { Playlists } from "../../types/playlists.ts";
+import type { Playlist, Playlists } from "../../types/playlists.ts";
 import { spotifyFetch } from "./spotifyFetch.ts";
 
 export function fetchUserPlaylists() {
@@ -6,5 +6,5 @@ export function fetchUserPlaylists() {
 }
 
 export function fetchPlaylist(id: string) {
-  return spotifyFetch(`/playlists/${id}`);
+  return spotifyFetch<Playlist>(`/playlists/${id}`);
 }

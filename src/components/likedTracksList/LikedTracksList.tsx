@@ -13,7 +13,7 @@ const LikedTracksList = ({ items }: Props) => {
       {items.map((item, index) => (
         <LikedTrack
           key={index}
-          num={index + 1}
+          num={index}
           imageSrc={item.track.album.images[1].url}
           name={item.track.name}
           artists={item.track.artists}

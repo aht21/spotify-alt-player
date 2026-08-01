@@ -1,4 +1,4 @@
-import type { Image } from "./user.ts";
+import type { Image } from "./.";
 
 export interface SpotifyExternalUrls {
   spotify: string;

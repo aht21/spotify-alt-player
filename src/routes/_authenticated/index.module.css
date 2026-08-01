@@ -2,7 +2,11 @@
   min-height: calc(100vh - 0.5rem);
   display: flex;
   flex-direction: column;
-  padding: 4rem 0.5rem 8rem 0.5rem;
+  padding: 4.5rem 0 8rem 0;
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
 }
 
 .app_content_wrapper {
@@ -16,18 +20,21 @@
   gap: 2rem;
 }
 
-.brand_wrapper {
+.header_wrapper {
   position: fixed;
   top: 1rem;
-  left: 1rem;
-  z-index: 10;
+  left: auto;
+  right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  max-width: 1300px;
+  width: 100%;
 }
 
-.profile_preview_wrapper {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
+.brand {
+  letter-spacing: 0.1rem;
 }
 
 .playback_wrapper {

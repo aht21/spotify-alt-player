@@ -16,3 +16,15 @@ export function fetchLibraryRemove(uri: string) {
 export function fetchUserLikedTracks(limit: number, offset: number) {
   return spotifyFetch<LikedTracks>(`/me/tracks?limit=${limit}&offset=${offset}`);
 }
+
+export function fetchPlayCollection(profileId: string, offset: number = 0) {
+  return spotifyFetch("/me/player/play", {
+    method: "PUT",
+    body: JSON.stringify({
+      context_uri: `spotify:user:${profileId}:collection`,
+      offset: {
+        position: offset,
+      },
+    }),
+  });
+}

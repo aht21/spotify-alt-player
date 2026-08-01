@@ -14,6 +14,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
+import { Route as AuthenticatedPlaylistIdRouteImport } from './routes/_authenticated/playlist/$id'
 import { Route as AuthenticatedLikedLikedRouteImport } from './routes/_authenticated/_liked/liked'
 
 const PreviewLazyRouteImport = createFileRoute('/preview')()
@@ -37,6 +38,11 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedPlaylistIdRoute = AuthenticatedPlaylistIdRouteImport.update({
+  id: '/playlist/$id',
+  path: '/playlist/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedLikedLikedRoute = AuthenticatedLikedLikedRouteImport.update({
   id: '/_liked/liked',
   path: '/liked',
@@ -48,12 +54,14 @@ export interface FileRoutesByFullPath {
   '/preview': typeof PreviewLazyRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/liked': typeof AuthenticatedLikedLikedRoute
+  '/playlist/$id': typeof AuthenticatedPlaylistIdRoute
 }
 export interface FileRoutesByTo {
   '/preview': typeof PreviewLazyRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/': typeof AuthenticatedIndexRoute
   '/liked': typeof AuthenticatedLikedLikedRoute
+  '/playlist/$id': typeof AuthenticatedPlaylistIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,12 +70,13 @@ export interface FileRoutesById {
   '/auth/callback': typeof AuthCallbackRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/_liked/liked': typeof AuthenticatedLikedLikedRoute
+  '/_authenticated/playlist/$id': typeof AuthenticatedPlaylistIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/preview' | '/auth/callback' | '/liked'
+  fullPaths: '/' | '/preview' | '/auth/callback' | '/liked' | '/playlist/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/preview' | '/auth/callback' | '/' | '/liked'
+  to: '/preview' | '/auth/callback' | '/' | '/liked' | '/playlist/$id'
   id:
     | '__root__'
     | '/_authenticated'
@@ -75,6 +84,7 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/_authenticated/'
     | '/_authenticated/_liked/liked'
+    | '/_authenticated/playlist/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -113,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/playlist/$id': {
+      id: '/_authenticated/playlist/$id'
+      path: '/playlist/$id'
+      fullPath: '/playlist/$id'
+      preLoaderRoute: typeof AuthenticatedPlaylistIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/_liked/liked': {
       id: '/_authenticated/_liked/liked'
       path: '/liked'
@@ -126,11 +143,13 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedLikedLikedRoute: typeof AuthenticatedLikedLikedRoute
+  AuthenticatedPlaylistIdRoute: typeof AuthenticatedPlaylistIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedLikedLikedRoute: AuthenticatedLikedLikedRoute,
+  AuthenticatedPlaylistIdRoute: AuthenticatedPlaylistIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

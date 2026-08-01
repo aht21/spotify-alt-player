@@ -1,26 +1,37 @@
 import { Link } from "@tanstack/react-router";
-import arrow from "../../assets/icons/chevron_left.svg";
+import arrowIcon from "../../assets/icons/chevron_left.svg";
+import playIcon from "../../assets/icons/play.svg";
+import pauseIcon from "../../assets/icons/pause.svg";
+import linkIcon from "../../assets/icons/external_link.svg";
 import styles from "./playlistHeaderContent.module.css";
 
 interface Props {
+  isPaused: boolean;
+  onPlay: () => void;
   coverSrc: string;
   name: string;
   contributors: {
     name: string;
     url: string;
-    imageSrc: string;
+    // imageSrc: string;
   }[];
 }
 
-const PlaylistHeaderContent = ({ coverSrc, name, contributors }: Props) => {
+const PlaylistHeaderContent = ({ isPaused, onPlay, coverSrc, name, contributors }: Props) => {
+  const onPlayPause = () => {
+    if (isPaused) {
+      onPlay();
+    }
+  };
+
   return (
     <div className={styles.header}>
       <div className={styles.controllers}>
         <Link to="/" className={styles.button_move}>
-          <img src={arrow} className={styles.button_back_image} />
+          <img src={arrowIcon} className={styles.button_back_image} />
         </Link>
         <button className={styles.button_move} disabled={true}>
-          <img src={arrow} className={styles.button_front_image} />
+          <img src={arrowIcon} className={styles.button_front_image} />
         </button>
       </div>
       <div className={styles.label}>
@@ -31,12 +42,21 @@ const PlaylistHeaderContent = ({ coverSrc, name, contributors }: Props) => {
           <div className={styles.contributors}>
             {contributors.map((item, index) => (
               <a href={item.url} target="_blank" className={styles.contributor} key={index}>
-                <img className={styles.contributor_avatar} src={item.imageSrc} alt="" />
+                {/* <img className={styles.contributor_avatar} src={item.imageSrc} alt="" /> */}
                 <span>{item.name}</span>
+                <img className={styles.contributor_link_icon} src={linkIcon} alt="" />
               </a>
             ))}
           </div>
-          <span className={styles.info}>97 songs, 4hr 13min</span>
+          <button className={styles.play_button} onClick={onPlayPause}>
+            <img
+              src={isPaused ? playIcon : pauseIcon}
+              alt=""
+              className={styles.play_button_image}
+            />
+            <span>Listen</span>
+          </button>
+          {/* <span className={styles.info}>97 songs, 4hr 13min</span> */}
         </div>
       </div>
     </div>

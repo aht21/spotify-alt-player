@@ -45,7 +45,12 @@ const ProfilePreview = () => {
   };
 
   if (isLoading) return <div className={styles.user_preview_loading}></div>;
-  if (isError || data === undefined) return;
+  if (isError || data === undefined)
+    return (
+      <button className={styles.user_logout} onClick={onLogout}>
+        logout
+      </button>
+    );
 
   return (
     <div className={styles.user_preview_wrapper}>

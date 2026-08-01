@@ -1,6 +1,5 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { isAuthenticated } from "../../services/auth";
-import Brand from "../../components/brand";
 import ProfilePreview from "../../components/profilePreview";
 import Playback from "../../components/playback";
 import styles from "./index.module.css";
@@ -20,10 +19,8 @@ export const Route = createFileRoute("/_authenticated")({
 function AuthenticatedLayout() {
   return (
     <div className={styles.app}>
-      <div className={styles.brand_wrapper}>
-        <Brand />
-      </div>
-      <div className={styles.profile_preview_wrapper}>
+      <div className={styles.header_wrapper}>
+        <span className={styles.brand}>Spotify / alt player</span>
         <ProfilePreview />
       </div>
       <div className={styles.app_content}>

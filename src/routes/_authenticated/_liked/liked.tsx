@@ -6,10 +6,10 @@ import LikedTracksList from "../../../components/likedTracksList";
 import styles from "./liked.module.css";
 
 export const Route = createFileRoute("/_authenticated/_liked/liked")({
-  component: LikedTracks,
+  component: Liked,
 });
 
-function LikedTracks() {
+function Liked() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["user-songs"],
     queryFn: () => fetchUserLikedTracks(30, 0),
