@@ -12,7 +12,7 @@ const Playback = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["playback-state"],
     queryFn: fetchPlaybackState,
-    refetchInterval: 5000,
+    // refetchInterval: 5000,
   });
 
   console.log(data);

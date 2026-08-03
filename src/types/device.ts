@@ -1,4 +1,8 @@
-export interface Device {
+export interface Devices {
+  devices: Device[];
+}
+
+interface Device {
   id: string;
   is_active: boolean;
   is_private_session: boolean;
@@ -7,8 +11,4 @@ export interface Device {
   type: string;
   volume_percent: number;
   supports_volume: boolean;
-}
-
-export interface Devices {
-  devices: Device[];
 }

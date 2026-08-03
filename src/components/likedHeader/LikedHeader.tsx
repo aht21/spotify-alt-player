@@ -26,7 +26,7 @@ const LikedHeader = () => {
         {
           name: data?.display_name,
           url: data.external_urls.spotify,
-          imageSrc: data.images[1].url,
+          // imageSrc: data.images[1].url,
         },
       ]}
     />

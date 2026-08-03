@@ -2,17 +2,17 @@ import type { Track } from ".";
 
 export type LibraryContains = boolean[];
 
-export interface LikedTracks {
+export interface LibraryTracks {
   href: string;
   limit: number;
   next: string | null;
   offset: number;
   previous: string | null;
   total: number;
-  items: LikedTrack[];
+  items: LibraryTrack[];
 }
 
-export interface LikedTrack {
+export interface LibraryTrack {
   added_at: string;
   track: Track;
 }

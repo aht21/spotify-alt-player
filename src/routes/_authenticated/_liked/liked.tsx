@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUserLikedTracks } from "../../../services/api/library";
+import { fetchUserLibraryTracks } from "../../../services/api/library";
 import LikedHeader from "../../../components/likedHeader";
-import LikedTracksList from "../../../components/likedTracksList";
+import LikedTracks from "../../../components/likedTracks";
 import styles from "./liked.module.css";
 
 export const Route = createFileRoute("/_authenticated/_liked/liked")({
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_authenticated/_liked/liked")({
 function Liked() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["user-songs"],
-    queryFn: () => fetchUserLikedTracks(30, 0),
+    queryFn: () => fetchUserLibraryTracks(50, 0),
   });
 
   if (isLoading || isError || !data) return;
@@ -21,7 +21,7 @@ function Liked() {
     <div className={styles.saved}>
       <div className={styles.inner}>
         <LikedHeader />
-        <LikedTracksList items={data.items} />
+        <LikedTracks items={data.items} />
       </div>
     </div>
   );

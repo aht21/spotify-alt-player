@@ -30,12 +30,3 @@ export function fetchPlaybackSetVolume(valuePercent: number) {
 export function fetchPlaybackSeek(valueMs: number) {
   return spotifyFetch(`/me/player/seek?position_ms=${Math.round(valueMs)}`, { method: "PUT" });
 }
-
-export function fetchPlayPlaylist(playlistId: string) {
-  return spotifyFetch("/me/player/play", {
-    method: "PUT",
-    body: JSON.stringify({
-      context_uri: `spotify:playlist:${playlistId}`,
-    }),
-  });
-}

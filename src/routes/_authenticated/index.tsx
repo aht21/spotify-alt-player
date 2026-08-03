@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import UserStuff from "../../components/userStuff";
-import Playlists from "../../components/playlists";
+import PlaylistsCards from "../../components/playlistsCards";
 import styles from "./index.module.css";
 
 export const Route = createFileRoute("/_authenticated/")({
@@ -10,8 +9,10 @@ export const Route = createFileRoute("/_authenticated/")({
 function Index() {
   return (
     <div className={styles.app_content}>
-      <UserStuff />
-      <Playlists />
+      <section className={styles.section}>
+        <h1 className={styles.section_header}>Your stuff</h1>
+        <PlaylistsCards />
+      </section>
     </div>
   );
 }

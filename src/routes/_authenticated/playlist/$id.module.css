@@ -1,0 +1,12 @@
+.playlist {
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}

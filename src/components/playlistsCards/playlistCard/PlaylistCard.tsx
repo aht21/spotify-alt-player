@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { fetchPlayPlaylist } from "../../../services/api/player";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchPlayPlaylist } from "../../../services/api/playlists";
 import playIcon from "../../../assets/icons/play.svg";
 import styles from "./playlistCard.module.css";
 
@@ -10,8 +11,19 @@ interface Props {
 }
 
 const PlayListCard = ({ id, imageUrl, name }: Props) => {
-  const onPlayPlaylist = () => {
-    fetchPlayPlaylist(id);
+  const queryClient = useQueryClient();
+
+  const playMutation = useMutation({
+    mutationFn: (id: string) => fetchPlayPlaylist(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+    },
+  });
+
+  const onPlayPlaylist = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    playMutation.mutate(id);
   };
 
   return (
@@ -19,7 +31,7 @@ const PlayListCard = ({ id, imageUrl, name }: Props) => {
       <div className={styles.card}>
         <div className={styles.image_wrapper}>
           <img src={imageUrl} alt="" className={styles.image} />
-          <button className={styles.play_button} onClick={() => onPlayPlaylist()}>
+          <button className={styles.play_button} onClick={onPlayPlaylist}>
             <img src={playIcon} className={styles.play_button_image} alt="" />
           </button>
         </div>

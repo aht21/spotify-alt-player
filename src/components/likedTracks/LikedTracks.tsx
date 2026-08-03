@@ -1,13 +1,12 @@
-import type { LikedTrack as LikedTrackType } from "../../types/library";
+import type { LibraryTrack } from "../../types/library";
 import LikedTrack from "./likedTrack";
-import styles from "./likedTracksList.module.css";
+import styles from "./likedTracks.module.css";
 
 interface Props {
-  items: LikedTrackType[];
+  items: LibraryTrack[];
 }
 
-const LikedTracksList = ({ items }: Props) => {
-  console.log(items);
+const LikedTracks = ({ items }: Props) => {
   return (
     <div className={styles.liked_tracks}>
       {items.map((item, index) => (
@@ -24,4 +23,4 @@ const LikedTracksList = ({ items }: Props) => {
   );
 };
 
-export default LikedTracksList;
+export default LikedTracks;

@@ -1,4 +1,4 @@
-import type { Image } from "./.";
+import type { Image, Track } from "./.";
 
 export interface SpotifyExternalUrls {
   spotify: string;
@@ -42,4 +42,22 @@ export interface Playlists {
   previous: string | null;
   total: number;
   items: Playlist[];
+}
+
+export interface PlaylistItems {
+  href: string;
+  limit: number;
+  next: string | null;
+  offset: number;
+  previous: string | null;
+  total: number;
+  items: PlaylistItem[];
+}
+
+export interface PlaylistItem {
+  added_at: string;
+  added_by: User;
+  is_local: boolean;
+  item: Track;
+  track: Track;
 }
