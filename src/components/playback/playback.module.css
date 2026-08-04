@@ -6,6 +6,19 @@
   position: relative;
 }
 
+.no_player {
+  background-color: var(--background-color);
+  backdrop-filter: blur(var(--background-blur));
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.5rem;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .player_inner {
   background-color: var(--background-color);
   backdrop-filter: blur(var(--background-blur));

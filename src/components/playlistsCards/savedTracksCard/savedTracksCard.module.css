@@ -14,6 +14,23 @@
   position: relative;
 }
 
+.active_image::before {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    rgba(29, 185, 84, 0.55) 0%,
+    rgba(29, 185, 84, 0.25) 40%,
+    rgba(29, 185, 84, 0) 70%
+  );
+  filter: blur(18px);
+  z-index: -1;
+  border-radius: 50%;
+  animation: glow-pulse 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
 .image {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -43,6 +60,11 @@
 }
 
 .card:hover .name {
+  opacity: 1;
+}
+
+.active_name {
+  color: var(--primary-color);
   opacity: 1;
 }
 
@@ -78,4 +100,22 @@
 
 .card .play_button:hover {
   transform: translateY(0) scale(1.1);
+}
+
+.active_button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
 }

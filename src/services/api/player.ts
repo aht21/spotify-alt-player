@@ -23,6 +23,18 @@ export function fetchPlaybackPause() {
   return spotifyFetch("/me/player/pause", { method: "PUT" });
 }
 
+export function fetchPlaybackShuffle(state: boolean) {
+  return spotifyFetch(`/me/player/shuffle?state=${state}`, {
+    method: "PUT",
+  });
+}
+
+export function fetchPlaybackRepeat(state: "track" | "context" | "off") {
+  return spotifyFetch(`/me/player/repeat?state=${state}`, {
+    method: "PUT",
+  });
+}
+
 export function fetchPlaybackSetVolume(valuePercent: number) {
   return spotifyFetch(`/me/player/volume?volume_percent=${valuePercent}`, { method: "PUT" });
 }

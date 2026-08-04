@@ -9,10 +9,10 @@ import Volume from "./volume";
 import styles from "./playback.module.css";
 
 const Playback = () => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["playback-state"],
     queryFn: fetchPlaybackState,
-    // refetchInterval: 5000,
+    refetchInterval: 5000,
   });
 
   console.log(data);
@@ -21,16 +21,13 @@ const Playback = () => {
     return <Skeleton />;
   }
 
-  // TODO: поменять надпись (возможно проблема с тем что не выбран device воспроизведения)
-  if (data == undefined || isError) {
+  if (data == undefined) {
     return (
       <div className={styles.player}>
-        <div className={styles.player_inner}>Error</div>
+        <div className={styles.no_player}>playback not found</div>
       </div>
     );
   }
-
-  if (data?.progress_ms === null) return <div>Трек не найден</div>;
 
   return (
     <div className={styles.player} id="player">
@@ -50,8 +47,13 @@ const Playback = () => {
         )}
 
         <div className={styles.controllers_wrapper}>
-          <Controllers deviceId={data.device.id} isPlaying={data.is_playing} />
-          {data?.item === null ? (
+          <Controllers
+            deviceId={data.device.id}
+            isPlaying={data.is_playing}
+            shuffleState={data.shuffle_state}
+            repeatState={data.repeat_state}
+          />
+          {data?.item === null || data?.progress_ms === null ? (
             <div className={styles.no_track_range}></div>
           ) : (
             <Range
