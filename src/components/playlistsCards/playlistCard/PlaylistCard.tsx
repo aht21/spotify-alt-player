@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchPlayPlaylist } from "../../../services/api/playlists";
+import { fetchPlaybackPause, fetchPlaybackResume } from "../../../services/api/player";
 import playIcon from "../../../assets/icons/play.svg";
 import pauseIcon from "../../../assets/icons/pause.svg";
 import styles from "./playlistCard.module.css";
@@ -10,9 +11,11 @@ interface Props {
   imageUrl: string;
   name: string;
   isActive: boolean;
+  isPlaying: boolean;
+  deviceId: string | undefined;
 }
 
-const PlayListCard = ({ id, imageUrl, name, isActive }: Props) => {
+const PlayListCard = ({ id, imageUrl, name, isActive, isPlaying, deviceId }: Props) => {
   const queryClient = useQueryClient();
 
   const playMutation = useMutation({
@@ -22,23 +25,39 @@ const PlayListCard = ({ id, imageUrl, name, isActive }: Props) => {
     },
   });
 
-  const onPlayPlaylist = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const pauseMutation = useMutation({
+    mutationFn: fetchPlaybackPause,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+    },
+  });
+
+  const resumeMutation = useMutation({
+    mutationFn: (deviceId: string) => fetchPlaybackResume(deviceId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+    },
+  });
+
+  const onPlayPauseLibrary = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    playMutation.mutate(id);
+    if (isPlaying) pauseMutation.mutate();
+    else if (isActive && deviceId) resumeMutation.mutate(deviceId);
+    else playMutation.mutate(id);
   };
 
   return (
     <Link to={"/playlist/$id"} params={{ id }}>
       <div className={styles.card}>
-        <div className={`${styles.image_wrapper} ${isActive && styles.active_image}`}>
+        <div className={`${styles.image_wrapper} ${isActive && isPlaying && styles.active_image}`}>
           <img src={imageUrl} alt="" className={styles.image} />
           <button
             className={`${styles.play_button} ${isActive && styles.active_button}`}
-            onClick={onPlayPlaylist}
+            onClick={onPlayPauseLibrary}
           >
             <img
-              src={isActive ? pauseIcon : playIcon}
+              src={isActive && isPlaying ? pauseIcon : playIcon}
               className={styles.play_button_image}
               alt=""
             />

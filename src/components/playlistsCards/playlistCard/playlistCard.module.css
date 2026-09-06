@@ -1,9 +1,10 @@
 .card {
   width: 100%;
-  max-width: 15.4rem;
+  max-width: 18.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin: auto;
   padding: 0.5rem 0.5rem 0.8rem 0.5rem;
   border-radius: 1rem;
   cursor: pointer;

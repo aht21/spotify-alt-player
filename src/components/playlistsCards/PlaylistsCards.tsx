@@ -35,7 +35,11 @@ const PlaylistsCards = () => {
 
   return (
     <div className={styles.list}>
-      <SavedTracksCard isActive={playbackData?.context?.type === "collection"} />
+      <SavedTracksCard
+        isActive={playbackData?.context?.type === "collection"}
+        isPlaying={playbackData?.is_playing || false}
+        deviceId={playbackData?.device.id}
+      />
       {data.items.map((item) => (
         <PlayListCard
           key={item.id}
@@ -45,6 +49,8 @@ const PlaylistsCards = () => {
           isActive={
             playbackData?.context?.type === "playlist" && playbackData?.context?.uri === item.uri
           }
+          isPlaying={playbackData?.is_playing || false}
+          deviceId={playbackData?.device.id}
         />
       ))}
     </div>

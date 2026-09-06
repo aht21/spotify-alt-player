@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchUserProfile } from "../../../services/api/user";
 import { fetchPlayCollection } from "../../../services/api/library";
+import { fetchPlaybackPause, fetchPlaybackResume } from "../../../services/api/player";
 import playIcon from "../../../assets/icons/play.svg";
 import pauseIcon from "../../../assets/icons/pause.svg";
 import likedCover from "../../../assets/images/liked_songs.png";
@@ -9,9 +10,11 @@ import styles from "./savedTracksCard.module.css";
 
 interface Props {
   isActive: boolean;
+  isPlaying: boolean;
+  deviceId: string | undefined;
 }
 
-const SavedTracksCard = ({ isActive }: Props) => {
+const SavedTracksCard = ({ isActive, isPlaying, deviceId }: Props) => {
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
@@ -26,24 +29,40 @@ const SavedTracksCard = ({ isActive }: Props) => {
     },
   });
 
-  const onPlayLibrary = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const pauseMutation = useMutation({
+    mutationFn: fetchPlaybackPause,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+    },
+  });
 
+  const resumeMutation = useMutation({
+    mutationFn: (deviceId: string) => fetchPlaybackResume(deviceId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+    },
+  });
+
+  const onPlayPauseLibrary = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     if (!data) return;
-    playMutation.mutate(data.id);
+
+    if (isPlaying) pauseMutation.mutate();
+    else if (isActive && deviceId) resumeMutation.mutate(deviceId);
+    else playMutation.mutate(data.id);
   };
 
   return (
     <Link to="/liked">
       <div className={styles.card}>
-        <div className={`${styles.image_wrapper} ${isActive && styles.active_image}`}>
+        <div className={`${styles.image_wrapper} ${isActive && isPlaying && styles.active_image}`}>
           <img src={likedCover} className={styles.image} />
           <button
             className={`${styles.play_button} ${isActive && styles.active_button}`}
-            onClick={onPlayLibrary}
+            onClick={onPlayPauseLibrary}
           >
             <img
-              src={isActive ? pauseIcon : playIcon}
+              src={isActive && isPlaying ? pauseIcon : playIcon}
               className={styles.play_button_image}
               alt=""
             />

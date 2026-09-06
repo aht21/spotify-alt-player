@@ -1,26 +1,51 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Artist } from "../../../types";
 import checkIcon from "../../../assets/icons/check_circle_solid.svg";
 import plusIcon from "../../../assets/icons/plus_circle.svg";
 import playIcon from "../../../assets/icons/play_alt.svg";
-import styles from "./likedTrack.module.css";
-import { useQuery } from "@tanstack/react-query";
+import pauseIcon from "../../../assets/icons/pause_alt.svg";
 import { fetchUserProfile } from "../../../services/api/user";
 import { fetchPlayCollection } from "../../../services/api/library";
+import { fetchPlaybackPause } from "../../../services/api/player";
+import { formatDate } from "../../../utils/date";
+import PlayingAnimation from "../../playingAnimation";
+import styles from "./likedTrack.module.css";
 
 interface Props {
   num: number;
   imageSrc: string;
   name: string;
   artists: Artist[];
+  album: {
+    name: string;
+  };
+  addedAt: string;
   durationMs: number;
+  isActive: boolean;
 }
 
 // TODO: сделать прокручивание названия трека и артистов
 
-const LikedTrack = ({ num, imageSrc, name, artists, durationMs }: Props) => {
+const LikedTrack = ({
+  num,
+  imageSrc,
+  name,
+  artists,
+  album,
+  addedAt,
+  durationMs,
+  isActive,
+}: Props) => {
+  const queryClient = useQueryClient();
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ["user-profile"],
     queryFn: fetchUserProfile,
+  });
+
+  const pauseMutation = useMutation({
+    mutationFn: fetchPlaybackPause,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["playback-state"] }),
   });
 
   if (isLoading) return;
@@ -39,14 +64,27 @@ const LikedTrack = ({ num, imageSrc, name, artists, durationMs }: Props) => {
     <div className={styles.track}>
       <div className={styles.section}>
         <div className={styles.number_wrapper}>
-          <span className={styles.number}>{num + 1}</span>
-          <button className={styles.play} onClick={onPlay}>
-            <img className={styles.play_icon} src={playIcon} alt="" />
-          </button>
+          {isActive ? (
+            <>
+              <span className={styles.number}>
+                <PlayingAnimation />
+              </span>
+              <button className={styles.play} onClick={() => pauseMutation.mutate()}>
+                <img className={styles.play_icon} src={pauseIcon} alt="" />
+              </button>
+            </>
+          ) : (
+            <>
+              <span className={styles.number}>{num + 1}</span>
+              <button className={styles.play} onClick={onPlay}>
+                <img className={styles.play_icon} src={playIcon} alt="" />
+              </button>
+            </>
+          )}
         </div>
         <img className={styles.image} src={imageSrc} />
         <div className={styles.info}>
-          <span className={styles.name}>{name}</span>
+          <span className={`${isActive && styles.name_active}`}>{name}</span>
           <span className={styles.artists_list}>
             {artists.map((artist, index) => (
               <span className={styles.artist} key={artist.id}>
@@ -56,6 +94,12 @@ const LikedTrack = ({ num, imageSrc, name, artists, durationMs }: Props) => {
             ))}
           </span>
         </div>
+      </div>
+      <div className={styles.section}>
+        <span className={styles.album_name}>{album.name}</span>
+      </div>
+      <div className={styles.section}>
+        <span className={styles.added_ago}>{formatDate(addedAt)}</span>
       </div>
       <div className={styles.section}>
         <button

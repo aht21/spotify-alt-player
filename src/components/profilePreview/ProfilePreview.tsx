@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUserProfile } from "../../services/api/user";
 import { removeTokens } from "../../services/auth";
@@ -75,6 +75,9 @@ const ProfilePreview = () => {
           Profile
           <img src={externalLinkIcon} className={styles.menu_item_icon} alt="" />
         </a>
+        <Link className={`${styles.menu_item} ${styles.menu_item_link}`} to={"/theme"}>
+          Theme
+        </Link>
         <hr className={styles.menu_divider} />
         <button className={styles.menu_item} onClick={onLogout}>
           Logout

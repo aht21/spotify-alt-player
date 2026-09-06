@@ -15,6 +15,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
 import { Route as AuthenticatedPlaylistIdRouteImport } from './routes/_authenticated/playlist/$id'
+import { Route as AuthenticatedThemeThemeRouteImport } from './routes/_authenticated/_theme/theme'
 import { Route as AuthenticatedLikedLikedRouteImport } from './routes/_authenticated/_liked/liked'
 
 const PreviewLazyRouteImport = createFileRoute('/preview')()
@@ -43,6 +44,11 @@ const AuthenticatedPlaylistIdRoute = AuthenticatedPlaylistIdRouteImport.update({
   path: '/playlist/$id',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedThemeThemeRoute = AuthenticatedThemeThemeRouteImport.update({
+  id: '/_theme/theme',
+  path: '/theme',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedLikedLikedRoute = AuthenticatedLikedLikedRouteImport.update({
   id: '/_liked/liked',
   path: '/liked',
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/preview': typeof PreviewLazyRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/liked': typeof AuthenticatedLikedLikedRoute
+  '/theme': typeof AuthenticatedThemeThemeRoute
   '/playlist/$id': typeof AuthenticatedPlaylistIdRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/auth/callback': typeof AuthCallbackRoute
   '/': typeof AuthenticatedIndexRoute
   '/liked': typeof AuthenticatedLikedLikedRoute
+  '/theme': typeof AuthenticatedThemeThemeRoute
   '/playlist/$id': typeof AuthenticatedPlaylistIdRoute
 }
 export interface FileRoutesById {
@@ -70,13 +78,16 @@ export interface FileRoutesById {
   '/auth/callback': typeof AuthCallbackRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/_liked/liked': typeof AuthenticatedLikedLikedRoute
+  '/_authenticated/_theme/theme': typeof AuthenticatedThemeThemeRoute
   '/_authenticated/playlist/$id': typeof AuthenticatedPlaylistIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/preview' | '/auth/callback' | '/liked' | '/playlist/$id'
+  fullPaths:
+    '/' | '/preview' | '/auth/callback' | '/liked' | '/theme' | '/playlist/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/preview' | '/auth/callback' | '/' | '/liked' | '/playlist/$id'
+  to:
+    '/preview' | '/auth/callback' | '/' | '/liked' | '/theme' | '/playlist/$id'
   id:
     | '__root__'
     | '/_authenticated'
@@ -84,6 +95,7 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/_authenticated/'
     | '/_authenticated/_liked/liked'
+    | '/_authenticated/_theme/theme'
     | '/_authenticated/playlist/$id'
   fileRoutesById: FileRoutesById
 }
@@ -130,6 +142,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPlaylistIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/_theme/theme': {
+      id: '/_authenticated/_theme/theme'
+      path: '/theme'
+      fullPath: '/theme'
+      preLoaderRoute: typeof AuthenticatedThemeThemeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/_liked/liked': {
       id: '/_authenticated/_liked/liked'
       path: '/liked'
@@ -143,12 +162,14 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedLikedLikedRoute: typeof AuthenticatedLikedLikedRoute
+  AuthenticatedThemeThemeRoute: typeof AuthenticatedThemeThemeRoute
   AuthenticatedPlaylistIdRoute: typeof AuthenticatedPlaylistIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedLikedLikedRoute: AuthenticatedLikedLikedRoute,
+  AuthenticatedThemeThemeRoute: AuthenticatedThemeThemeRoute,
   AuthenticatedPlaylistIdRoute: AuthenticatedPlaylistIdRoute,
 }
 

@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
 import { fetchAvailableDevices, fetchTransferPlayback } from "../../../services/api/device.ts";
-
 import deviceIcon from "../../../assets/icons/device.svg";
+import PlayingAnimation from "../../playingAnimation";
 import styles from "./device.module.css";
 
 interface Props {
@@ -91,7 +90,11 @@ const Device = ({ isPlaying }: Props) => {
                     className={`${styles.button} ${device.is_active ? styles.button_active : ""}`}
                     onClick={() => transferMutation.mutate(device.id)}
                   >
-                    <div className={styles.button_point} />
+                    {device.is_active ? (
+                      <PlayingAnimation />
+                    ) : (
+                      <div className={styles.button_point} />
+                    )}
                     {device.name}
                   </button>
                 </li>
