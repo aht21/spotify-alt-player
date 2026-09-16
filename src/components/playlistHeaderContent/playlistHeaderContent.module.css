@@ -31,7 +31,6 @@
 }
 
 .contributors {
-  font-weight: 500;
   display: flex;
   gap: 1rem;
 }
@@ -46,6 +45,7 @@
   backdrop-filter: blur(var(--background-blur));
   transition: 0.3s;
   font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .contributor:hover {
@@ -59,15 +59,20 @@
 
 .contributor_link_icon {
   height: 0.8rem;
-  opacity: 0.4;
+  opacity: 0.8;
 }
 
 .info {
   opacity: 0.6;
 }
 
-.play_button {
+.buttons_group {
   margin-top: 1.8rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.play_button {
   background-color: var(--primary-color);
   display: flex;
   align-items: center;
@@ -76,7 +81,6 @@
   border-radius: 2rem;
   color: #121212;
   width: fit-content;
-  font-weight: 500;
 }
 
 .play_button:hover {
@@ -84,6 +88,27 @@
 }
 
 .play_button_image {
-  width: 100%;
   height: 1.2rem;
+}
+
+.url_link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 2rem;
+  background-color: var(--background-color);
+  backdrop-filter: blur(var(--background-blur));
+  color: rgba(255, 255, 255, 0.8);
+  transition: 0.3s;
+}
+
+.url_link:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.url_link_image {
+  height: 1.2rem;
+  padding: 0.08rem;
+  opacity: 0.8;
 }

@@ -21,9 +21,9 @@
   inset: -20px;
   background: radial-gradient(
     ellipse at 50% 60%,
-    rgba(29, 185, 84, 0.55) 0%,
-    rgba(29, 185, 84, 0.25) 40%,
-    rgba(29, 185, 84, 0) 70%
+    rgb(from var(--primary-color) r g b / 0.55) 0%,
+    rgb(from var(--primary-color) r g b / 0.25) 40%,
+    rgb(from var(--primary-color) r g b / 0) 70%
   );
   filter: blur(18px);
   z-index: -1;

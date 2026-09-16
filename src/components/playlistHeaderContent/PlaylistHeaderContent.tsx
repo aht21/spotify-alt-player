@@ -1,5 +1,3 @@
-import { Link } from "@tanstack/react-router";
-import arrowIcon from "../../assets/icons/chevron_left.svg";
 import playIcon from "../../assets/icons/play.svg";
 import pauseIcon from "../../assets/icons/pause.svg";
 import linkIcon from "../../assets/icons/external_link.svg";
@@ -15,9 +13,10 @@ interface Props {
     url: string;
     // imageSrc: string;
   }[];
+  url: string;
 }
 
-const PlaylistHeaderContent = ({ isPaused, onPlay, coverSrc, name, contributors }: Props) => {
+const PlaylistHeaderContent = ({ isPaused, onPlay, coverSrc, name, contributors, url }: Props) => {
   const onPlayPause = () => {
     if (isPaused) {
       onPlay();
@@ -39,10 +38,20 @@ const PlaylistHeaderContent = ({ isPaused, onPlay, coverSrc, name, contributors 
             </a>
           ))}
         </div>
-        <button className={styles.play_button} onClick={onPlayPause}>
-          <img src={isPaused ? playIcon : pauseIcon} alt="" className={styles.play_button_image} />
-          <span>Listen</span>
-        </button>
+        <div className={styles.buttons_group}>
+          <button className={styles.play_button} onClick={onPlayPause}>
+            <img
+              src={isPaused ? playIcon : pauseIcon}
+              alt=""
+              className={styles.play_button_image}
+            />
+            <span>Listen</span>
+          </button>
+          <a href={url} target="_blank" className={styles.url_link}>
+            <span>Open in Spotify</span>
+            <img className={styles.url_link_image} src={linkIcon} alt="" />
+          </a>
+        </div>
         {/* <span className={styles.info}>97 songs, 4hr 13min</span> */}
       </div>
     </div>

@@ -16,6 +16,8 @@ const LikedHeader = () => {
     fetchPlayCollection(data.id, 0);
   };
 
+  console.log(data);
+
   return (
     <PlaylistHeaderContent
       isPaused={true}
@@ -29,6 +31,7 @@ const LikedHeader = () => {
           // imageSrc: data.images[1].url,
         },
       ]}
+      url="https://open.spotify.com/collection/tracks"
     />
   );
 };

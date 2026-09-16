@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Artist } from "../../../types";
-import checkIcon from "../../../assets/icons/check_circle_solid.svg";
 import plusIcon from "../../../assets/icons/plus_circle.svg";
 import playIcon from "../../../assets/icons/play_alt.svg";
 import pauseIcon from "../../../assets/icons/pause_alt.svg";
@@ -9,6 +8,7 @@ import { fetchPlayCollection } from "../../../services/api/library";
 import { fetchPlaybackPause } from "../../../services/api/player";
 import { formatDate } from "../../../utils/date";
 import PlayingAnimation from "../../playingAnimation";
+import SaveMarkerIcon from "../../saveMarkerIcon";
 import styles from "./likedTrack.module.css";
 
 interface Props {
@@ -52,7 +52,7 @@ const LikedTrack = ({
   if (isError || !data) return;
 
   const onPlay = () => {
-    fetchPlayCollection(data.id, num);
+    fetchPlayCollection(data.id, num - 1);
   };
 
   const onSaveRemove = () => {};
@@ -75,7 +75,7 @@ const LikedTrack = ({
             </>
           ) : (
             <>
-              <span className={styles.number}>{num + 1}</span>
+              <span className={styles.number}>{num}</span>
               <button className={styles.play} onClick={onPlay}>
                 <img className={styles.play_icon} src={playIcon} alt="" />
               </button>
@@ -108,7 +108,7 @@ const LikedTrack = ({
           // disabled={saveMutation.isPending || removeMutation.isPending}
         >
           {true ? (
-            <img src={checkIcon} alt="" className={styles.saved_image} />
+            <SaveMarkerIcon height="1.3rem" width="1.3rem" />
           ) : (
             <img src={plusIcon} alt="" className={styles.save_image} />
           )}

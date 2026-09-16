@@ -29,6 +29,7 @@ const PlaylistHeader = ({ id }: Props) => {
             url: data.owner.external_urls.spotify,
           },
         ]}
+        url={data.external_urls.spotify}
       />
     </div>
   );

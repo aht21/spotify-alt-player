@@ -46,7 +46,7 @@ const Controllers = ({ deviceId, isPlaying, shuffleState, repeatState }: Props) 
   const invalidatePlayback = () => queryClient.invalidateQueries({ queryKey: ["playback-state"] });
 
   const invalidatePlaybackDelayed = async () => {
-    await delay(150);
+    await delay(250);
     invalidatePlayback();
   };
 

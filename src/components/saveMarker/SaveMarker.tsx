@@ -4,8 +4,8 @@ import {
   fetchLibraryRemove,
   fetchLibrarySave,
 } from "../../services/api/library.ts";
-import checkIcon from "../../assets/icons/check_circle_solid.svg";
 import plusIcon from "../../assets/icons/plus_circle.svg";
+import SaveMarkerIcon from "../saveMarkerIcon";
 import styles from "./saveMarker.module.css";
 
 interface Props {
@@ -109,7 +109,7 @@ const SaveMarker = ({ uri }: Props) => {
       disabled={saveMutation.isPending || removeMutation.isPending}
     >
       {data[0] ? (
-        <img src={checkIcon} alt="" className={styles.saved_image} />
+        <SaveMarkerIcon height="1.6rem" width="1.6rem" />
       ) : (
         <img src={plusIcon} alt="" className={styles.save_image} />
       )}

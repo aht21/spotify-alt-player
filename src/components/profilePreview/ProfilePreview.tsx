@@ -75,7 +75,11 @@ const ProfilePreview = () => {
           Profile
           <img src={externalLinkIcon} className={styles.menu_item_icon} alt="" />
         </a>
-        <Link className={`${styles.menu_item} ${styles.menu_item_link}`} to={"/theme"}>
+        <Link
+          className={`${styles.menu_item} ${styles.menu_item_link}`}
+          to={"/theme"}
+          onClick={() => setIsOpen(false)}
+        >
           Theme
         </Link>
         <hr className={styles.menu_divider} />

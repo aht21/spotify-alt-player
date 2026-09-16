@@ -8,11 +8,11 @@ export const Route = createFileRoute("/_authenticated/")({
 
 function Index() {
   return (
-    <div className={styles.app_content}>
+    <>
       <section className={styles.section}>
         <h1 className={styles.section_header}>Your stuff</h1>
         <PlaylistsCards />
       </section>
-    </div>
+    </>
   );
 }
