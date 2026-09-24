@@ -5,6 +5,8 @@ import SavedTracksCard from "./savedTracksCard";
 import PlayListCard from "./playlistCard";
 import styles from "./playlistsCards.module.css";
 
+const LIKED_SONGS_URI = "spotify:playlist:37i9dQZF1F5p3rmiWPIYgZ";
+
 const PlaylistsCards = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["playlists"],
@@ -36,7 +38,7 @@ const PlaylistsCards = () => {
   return (
     <div className={styles.list}>
       <SavedTracksCard
-        isActive={playbackData?.context?.type === "collection"}
+        isActive={playbackData?.context?.uri === LIKED_SONGS_URI}
         isPlaying={playbackData?.is_playing || false}
         deviceId={playbackData?.device.id}
       />
@@ -46,9 +48,7 @@ const PlaylistsCards = () => {
           id={item.id}
           name={item.name}
           imageUrl={item.images[0].url}
-          isActive={
-            playbackData?.context?.type === "playlist" && playbackData?.context?.uri === item.uri
-          }
+          isActive={playbackData?.context?.uri === item.uri}
           isPlaying={playbackData?.is_playing || false}
           deviceId={playbackData?.device.id}
         />

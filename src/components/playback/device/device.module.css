@@ -2,10 +2,6 @@
   padding: 0;
   height: fit-content;
   display: flex;
-}
-
-.loading_icon {
-  height: 1.6rem;
   opacity: 0.72;
 }
 
@@ -13,15 +9,18 @@
   padding: 0;
   height: fit-content;
   display: flex;
-}
-
-.preview_icon {
-  height: 1.6rem;
   opacity: 0.72;
-  transition: opacity 0.3s;
+  transition: 0.3s;
 }
 
-.preview_icon:hover {
+.preview:hover {
+  opacity: 1;
+}
+
+.preview_active {
+  padding: 0;
+  height: fit-content;
+  display: flex;
   opacity: 1;
 }
 

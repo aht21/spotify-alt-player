@@ -1,113 +1,31 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  fetchPlaybackNext,
-  fetchPlaybackPause,
-  fetchPlaybackPrevious,
-  fetchPlaybackRepeat,
-  fetchPlaybackResume,
-  fetchPlaybackShuffle,
-} from "../../../services/api/player.ts";
 import nextIcon from "../../../assets/icons/next.svg";
 import pauseIcon from "../../../assets/icons/pause.svg";
 import playIcon from "../../../assets/icons/play.svg";
-import shuffleIcon from "../../../assets/icons/shuffle.svg";
-import shuffleAltIcon from "../../../assets/icons/shuffle_alt.svg";
-import repeatIcon from "../../../assets/icons/repeat.svg";
-import repeatAltIcon from "../../../assets/icons/repeat_alt.svg";
-import repeat1Icon from "../../../assets/icons/repeat_1.svg";
-import { useOptimisticPlaybackMutation } from "./useOptimisticPlaybackMutation.ts";
+import { usePlaybackContext } from "../../../context/playbackProvider";
+import ShuffleIcon from "../../shuffleIcon";
 import styles from "./controllers.module.css";
+import RepeatIcon from "../../repeatIcon/RepeatIcon.tsx";
 
-type RepeatState = "track" | "context" | "off";
+const Controllers = () => {
+  const { pause, resume, prev, next, shuffle, repeat, isPlaying, repeatState, shuffleState } =
+    usePlaybackContext();
 
-const NEXT_REPEAT_STATE: Record<RepeatState, RepeatState> = {
-  off: "context",
-  context: "track",
-  track: "off",
-};
+  const onPlayPause = () => (isPlaying ? pause() : resume());
 
-const REPEAT_ICONS: Record<RepeatState, string> = {
-  off: repeatIcon,
-  context: repeatAltIcon,
-  track: repeat1Icon,
-};
-
-interface Props {
-  deviceId: string;
-  isPlaying: boolean;
-  shuffleState: boolean;
-  repeatState: RepeatState;
-}
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const Controllers = ({ deviceId, isPlaying, shuffleState, repeatState }: Props) => {
-  const queryClient = useQueryClient();
-  const invalidatePlayback = () => queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-
-  const invalidatePlaybackDelayed = async () => {
-    await delay(250);
-    invalidatePlayback();
-  };
-
-  const prevMutation = useMutation({
-    mutationFn: fetchPlaybackPrevious,
-    onSuccess: invalidatePlaybackDelayed,
-  });
-
-  const nextMutation = useMutation({
-    mutationFn: fetchPlaybackNext,
-    onSuccess: invalidatePlaybackDelayed,
-  });
-
-  const pauseMutation = useOptimisticPlaybackMutation(fetchPlaybackPause, () => ({
-    is_playing: false,
-  }));
-
-  const resumeMutation = useOptimisticPlaybackMutation(
-    () => fetchPlaybackResume(deviceId),
-    () => ({ is_playing: true }),
-  );
-
-  const shuffleMutation = useOptimisticPlaybackMutation(
-    () => fetchPlaybackShuffle(!shuffleState),
-    () => ({ shuffle_state: !shuffleState }),
-  );
-
-  const repeatMutation = useOptimisticPlaybackMutation(
-    (state: RepeatState) => fetchPlaybackRepeat(state),
-    (state) => ({ repeat_state: state }),
-  );
-
-  const onPlayPause = () => (isPlaying ? pauseMutation.mutate() : resumeMutation.mutate());
-  const onRepeat = () => repeatMutation.mutate(NEXT_REPEAT_STATE[repeatState]);
-
-  const isMutating =
-    prevMutation.isPending ||
-    nextMutation.isPending ||
-    pauseMutation.isPending ||
-    resumeMutation.isPending;
+  const isMutating = false;
 
   return (
     <div className={styles.wrapper}>
       <button
-        disabled={shuffleMutation.isPending}
-        className={styles.control_button}
-        onClick={() => shuffleMutation.mutate()}
+        disabled={false}
+        className={shuffleState ? styles.control_button_active : styles.control_button}
+        onClick={shuffle}
       >
-        <img
-          className={styles.shuffle_icon}
-          src={shuffleState ? shuffleAltIcon : shuffleIcon}
-          alt=""
-        />
+        <ShuffleIcon width="1.2rem" height="1.2rem" variant={shuffleState ? "white" : "primary"} />
       </button>
 
       <div className={styles.move_controls}>
-        <button
-          disabled={isMutating}
-          className={styles.control_button}
-          onClick={() => prevMutation.mutate()}
-        >
+        <button disabled={isMutating} className={styles.control_button} onClick={prev}>
           <img src={nextIcon} className={styles.prev_icon} alt="" />
         </button>
 
@@ -119,21 +37,17 @@ const Controllers = ({ deviceId, isPlaying, shuffleState, repeatState }: Props) 
           />
         </button>
 
-        <button
-          disabled={isMutating}
-          className={styles.control_button}
-          onClick={() => nextMutation.mutate()}
-        >
+        <button disabled={isMutating} className={styles.control_button} onClick={next}>
           <img src={nextIcon} className={styles.next_icon} alt="" />
         </button>
       </div>
 
       <button
-        disabled={repeatMutation.isPending}
-        className={styles.control_button}
-        onClick={onRepeat}
+        disabled={false}
+        className={repeatState !== "off" ? styles.control_button_active : styles.control_button}
+        onClick={repeat}
       >
-        <img className={styles.repeat_icon} src={REPEAT_ICONS[repeatState]} alt="" />
+        <RepeatIcon width="1.2rem" height="1.2rem" variant={repeatState} />
       </button>
     </div>
   );

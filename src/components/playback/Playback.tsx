@@ -1,5 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchPlaybackState } from "../../services/api/player.ts";
+import { usePlaybackContext } from "../../context/playbackProvider";
 import Skeleton from "./skeleton";
 import CurrentTrack from "./currentTrack";
 import Controllers from "./controllers";
@@ -9,13 +8,7 @@ import Volume from "./volume";
 import styles from "./playback.module.css";
 
 const Playback = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["playback-state"],
-    queryFn: fetchPlaybackState,
-    refetchInterval: 5000,
-  });
-
-  console.log(data);
+  const { data, isLoading } = usePlaybackContext();
 
   if (isLoading) {
     return <Skeleton />;
@@ -47,12 +40,7 @@ const Playback = () => {
         )}
 
         <div className={styles.controllers_wrapper}>
-          <Controllers
-            deviceId={data.device.id}
-            isPlaying={data.is_playing}
-            shuffleState={data.shuffle_state}
-            repeatState={data.repeat_state}
-          />
+          <Controllers />
           {data?.item === null || data?.progress_ms === null ? (
             <div className={styles.no_track_range}></div>
           ) : (

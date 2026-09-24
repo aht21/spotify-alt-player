@@ -33,7 +33,7 @@ const PlayListCard = ({ id, imageUrl, name, isActive, isPlaying, deviceId }: Pro
   });
 
   const resumeMutation = useMutation({
-    mutationFn: (deviceId: string) => fetchPlaybackResume(deviceId),
+    mutationFn: () => fetchPlaybackResume(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["playback-state"] });
     },
@@ -42,8 +42,8 @@ const PlayListCard = ({ id, imageUrl, name, isActive, isPlaying, deviceId }: Pro
   const onPlayPauseLibrary = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (isPlaying) pauseMutation.mutate();
-    else if (isActive && deviceId) resumeMutation.mutate(deviceId);
+    if (isPlaying && isActive) pauseMutation.mutate();
+    else if (isActive && deviceId) resumeMutation.mutate();
     else playMutation.mutate(id);
   };
 

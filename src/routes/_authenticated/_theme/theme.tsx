@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useTheme } from "../../../components/themeProvider";
+import { useThemeContext } from "../../../context/themeProvider";
 import ColorInput from "../../../components/colorInput";
 import styles from "./theme.module.css";
 
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_authenticated/_theme/theme")({
 
 function Theme() {
   const { primaryColor, setPrimaryColor, revertColor, blurStrength, setBlurStrength, revertBlur } =
-    useTheme();
+    useThemeContext();
 
   const onChangeBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBlurStrength(Number(e.target.value));

@@ -8,6 +8,8 @@
   width: 16rem;
   height: 16rem;
   border-radius: 1rem;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   background: #4a00ff;
   background: linear-gradient(135deg, rgba(74, 0, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
 }

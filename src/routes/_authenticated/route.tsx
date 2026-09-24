@@ -2,7 +2,8 @@ import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query";
 import { isAuthenticated } from "../../services/auth";
 import { fetchPlaybackState } from "../../services/api/player";
-import ThemeProvider from "../../components/themeProvider";
+import ThemeProvider from "../../context/themeProvider";
+import PlaybackProvider from "../../context/playbackProvider";
 import ActiveDevice from "../../components/activeDevice";
 import ProfilePreview from "../../components/profilePreview";
 import Playback from "../../components/playback";
@@ -28,23 +29,26 @@ function AuthenticatedLayout() {
 
   return (
     <ThemeProvider>
-      <div className={styles.wrapper}>
-        {!isLoading && data === null ? <ActiveDevice /> : null}
-        <div className={styles.app}>
-          <div className={styles.header_wrapper}>
-            <Link to={"/"} className={styles.brand}>
-              Spotify / alt player
-            </Link>
-            <ProfilePreview />
-          </div>
-          <div className={styles.app_content}>
-            <Outlet />
-          </div>
-          <div className={styles.playback_wrapper}>
-            <Playback />
+      <PlaybackProvider>
+        <div className={styles.wrapper}>
+          {!isLoading && data === null ? <ActiveDevice /> : null}
+
+          <div className={styles.app}>
+            <div className={styles.header_wrapper}>
+              <Link to={"/"} className={styles.brand}>
+                Spotify / alt player
+              </Link>
+              <ProfilePreview />
+            </div>
+            <div className={styles.app_content}>
+              <Outlet />
+            </div>
+            <div className={styles.playback_wrapper}>
+              <Playback />
+            </div>
           </div>
         </div>
-      </div>
+      </PlaybackProvider>
     </ThemeProvider>
   );
 }

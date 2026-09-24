@@ -9,11 +9,24 @@
   display: flex;
   padding: 0;
   opacity: 0.72;
-  transition: opacity 0.3s;
+  transition: 0.3s;
 }
 
 .control_button:hover {
   opacity: 1;
+  transform: scale(1.1);
+}
+
+.control_button_active {
+  height: fit-content;
+  display: flex;
+  padding: 0;
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.control_button_active:hover {
+  transform: scale(1.1);
 }
 
 .move_controls {

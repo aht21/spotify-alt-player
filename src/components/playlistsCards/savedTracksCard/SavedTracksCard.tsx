@@ -37,7 +37,7 @@ const SavedTracksCard = ({ isActive, isPlaying, deviceId }: Props) => {
   });
 
   const resumeMutation = useMutation({
-    mutationFn: (deviceId: string) => fetchPlaybackResume(deviceId),
+    mutationFn: () => fetchPlaybackResume(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["playback-state"] });
     },
@@ -47,8 +47,8 @@ const SavedTracksCard = ({ isActive, isPlaying, deviceId }: Props) => {
     event.preventDefault();
     if (!data) return;
 
-    if (isPlaying) pauseMutation.mutate();
-    else if (isActive && deviceId) resumeMutation.mutate(deviceId);
+    if (isPlaying && isActive) pauseMutation.mutate();
+    else if (isActive && deviceId) resumeMutation.mutate();
     else playMutation.mutate(data.id);
   };
 

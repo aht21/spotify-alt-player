@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { PlaybackState } from "../../../types/player.ts";
+import type { PlaybackState } from "../types/player.ts";
 
 /**
  * Mutation with optimistic replay state update:

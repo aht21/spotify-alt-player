@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchUserProfile } from "../../services/api/user";
 import { fetchPlayCollection } from "../../services/api/library";
+import { fetchPlaybackState } from "../../services/api/player";
 import PlaylistHeaderContent from "../playlistHeaderContent";
 import likedSongsCover from "../../assets/images/liked_songs.png";
+
+const LIKED_SONGS_URI = "spotify:playlist:37i9dQZF1F5p3rmiWPIYgZ";
 
 const LikedHeader = () => {
   const { data, isLoading, isError } = useQuery({
@@ -10,25 +13,27 @@ const LikedHeader = () => {
     queryFn: fetchUserProfile,
   });
 
-  if (isLoading || isError || !data) return;
+  const { data: playbackData } = useQuery({
+    queryKey: ["playback-state"],
+    queryFn: fetchPlaybackState,
+    refetchInterval: 5000,
+  });
 
-  const onPlay = () => {
-    fetchPlayCollection(data.id, 0);
-  };
+  if (isLoading || isError || !data) return null;
 
-  console.log(data);
+  const isPaused = playbackData?.context?.uri === LIKED_SONGS_URI && !playbackData?.is_playing;
+  console.log(isPaused, "pause");
 
   return (
     <PlaylistHeaderContent
-      isPaused={true}
-      onPlay={onPlay}
+      isPaused={isPaused}
+      onPlay={() => fetchPlayCollection(data.id, 0)}
       coverSrc={likedSongsCover}
       name="Liked songs"
       contributors={[
         {
-          name: data?.display_name,
+          name: data.display_name,
           url: data.external_urls.spotify,
-          // imageSrc: data.images[1].url,
         },
       ]}
       url="https://open.spotify.com/collection/tracks"

@@ -1,16 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchPlaylist } from "../../services/api/playlists";
 import PlaylistHeaderContent from "../playlistHeaderContent";
+import usePlaylist from "../../hooks/usePlaylist";
 
 interface Props {
   id: string;
 }
 
 const PlaylistHeader = ({ id }: Props) => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["playlist", id],
-    queryFn: () => fetchPlaylist(id),
-  });
+  const { data, isLoading, isError } = usePlaylist(id);
 
   console.log(data);
 

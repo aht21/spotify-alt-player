@@ -13,8 +13,8 @@ export function fetchPlaybackNext() {
   return spotifyFetch("/me/player/next", { method: "POST" });
 }
 
-export function fetchPlaybackResume(deviceId: string) {
-  return spotifyFetch(`/me/player/play?device_id=${deviceId}`, {
+export function fetchPlaybackResume() {
+  return spotifyFetch(`/me/player/play`, {
     method: "PUT",
   });
 }

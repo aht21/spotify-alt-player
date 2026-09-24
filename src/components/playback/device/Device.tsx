@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchAvailableDevices, fetchTransferPlayback } from "../../../services/api/device.ts";
-import deviceIcon from "../../../assets/icons/device.svg";
 import PlayingAnimation from "../../playingAnimation";
+import DeviceIcon from "../../deviceIcon";
 import styles from "./device.module.css";
 
 interface Props {
@@ -65,7 +65,7 @@ const Device = ({ isPlaying }: Props) => {
   if (isLoading) {
     return (
       <button className={styles.loading} disabled={true}>
-        <img src={deviceIcon} alt="playback device" className={styles.loading_icon} />
+        <DeviceIcon height="1.6rem" width="1.6rem" variant="white" />
       </button>
     );
   }
@@ -74,8 +74,12 @@ const Device = ({ isPlaying }: Props) => {
 
   return (
     <>
-      <button ref={buttonRef} className={styles.preview} onClick={openCloseMenu}>
-        <img src={deviceIcon} alt="playback device" className={styles.preview_icon} />
+      <button
+        ref={buttonRef}
+        className={isOpen ? styles.preview_active : styles.preview}
+        onClick={openCloseMenu}
+      >
+        <DeviceIcon height="1.6rem" width="1.6rem" variant={isOpen ? "primary" : "white"} />
       </button>
 
       {portalRoot &&
