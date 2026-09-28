@@ -1,0 +1,139 @@
+.header {
+  display: flex;
+  gap: 2.2rem;
+  margin-top: 2rem;
+}
+
+.cover {
+  width: 16rem;
+  height: 16rem;
+  border-radius: 1rem;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #4a00ff;
+  background: linear-gradient(135deg, rgba(74, 0, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  flex: 1;
+}
+
+.content_first {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.type {
+  opacity: 0.6;
+  letter-spacing: 0.1rem;
+}
+
+.name {
+  font-family: "Montserrat", sans-serif;
+  font-size: 4.5rem;
+  font-weight: 600;
+  margin: 0;
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.description {
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.6;
+  margin-bottom: 0.3rem;
+}
+
+.contributors {
+  display: flex;
+  gap: 1rem;
+}
+
+.contributor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.8em;
+  border-radius: 1.2rem;
+  background-color: var(--background-color);
+  backdrop-filter: blur(var(--background-blur));
+  transition: 0.3s;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.contributor:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.contributor_avatar {
+  height: 1.5rem;
+  border-radius: 1rem;
+}
+
+.contributor_link_icon {
+  height: 0.8rem;
+  opacity: 0.8;
+}
+
+.info {
+  opacity: 0.6;
+}
+
+.buttons_group {
+  margin-top: 1.8rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.play_button {
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 2rem;
+  color: #121212;
+  width: fit-content;
+}
+
+.play_button:hover {
+  opacity: 0.8;
+}
+
+.play_button_image {
+  height: 1.2rem;
+}
+
+.url_link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 2rem;
+  background-color: var(--background-color);
+  backdrop-filter: blur(var(--background-blur));
+  color: rgba(255, 255, 255, 0.8);
+  transition: 0.3s;
+}
+
+.url_link:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.url_link_image {
+  height: 1.2rem;
+  padding: 0.08rem;
+  opacity: 0.8;
+}

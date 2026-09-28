@@ -5,7 +5,9 @@ export interface SpotifyExternalUrls {
 }
 
 export interface User {
-  external_urls: TracksReference;
+  external_urls: {
+    spotify: string;
+  };
   href: string;
   id: string;
   type: "user";

@@ -1,59 +1,29 @@
 import { Link } from "@tanstack/react-router";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchUserProfile } from "../../../services/api/user";
-import { fetchPlayCollection } from "../../../services/api/library";
-import { fetchPlaybackPause, fetchPlaybackResume } from "../../../services/api/player";
 import playIcon from "../../../assets/icons/play.svg";
 import pauseIcon from "../../../assets/icons/pause.svg";
 import likedCover from "../../../assets/images/liked_songs.png";
+import usePlaybackActions from "../../../hooks/usePlaybackActions";
 import styles from "./savedTracksCard.module.css";
 
 interface Props {
+  uri: string;
   isActive: boolean;
   isPlaying: boolean;
-  deviceId: string | undefined;
 }
 
-const SavedTracksCard = ({ isActive, isPlaying, deviceId }: Props) => {
-  const queryClient = useQueryClient();
-
-  const { data } = useQuery({
-    queryKey: ["user-profile"],
-    queryFn: fetchUserProfile,
-  });
-
-  const playMutation = useMutation({
-    mutationFn: (id: string) => fetchPlayCollection(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-    },
-  });
-
-  const pauseMutation = useMutation({
-    mutationFn: fetchPlaybackPause,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-    },
-  });
-
-  const resumeMutation = useMutation({
-    mutationFn: () => fetchPlaybackResume(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-    },
-  });
+const SavedTracksCard = ({ uri, isActive, isPlaying }: Props) => {
+  const { pause, resume, play } = usePlaybackActions();
 
   const onPlayPauseLibrary = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    if (!data) return;
 
-    if (isPlaying && isActive) pauseMutation.mutate();
-    else if (isActive && deviceId) resumeMutation.mutate();
-    else playMutation.mutate(data.id);
+    if (isPlaying && isActive) pause();
+    else if (isActive) resume();
+    else play({ uri });
   };
 
   return (
-    <Link to="/liked">
+    <Link to={"/playlist/$uri"} params={{ uri }}>
       <div className={styles.card}>
         <div className={`${styles.image_wrapper} ${isActive && isPlaying && styles.active_image}`}>
           <img src={likedCover} className={styles.image} />

@@ -1,54 +1,30 @@
 import { Link } from "@tanstack/react-router";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchPlayPlaylist } from "../../../services/api/playlists";
-import { fetchPlaybackPause, fetchPlaybackResume } from "../../../services/api/player";
 import playIcon from "../../../assets/icons/play.svg";
 import pauseIcon from "../../../assets/icons/pause.svg";
+import usePlaybackActions from "../../../hooks/usePlaybackActions";
 import styles from "./playlistCard.module.css";
 
 interface Props {
-  id: string;
+  uri: string;
   imageUrl: string;
   name: string;
   isActive: boolean;
   isPlaying: boolean;
-  deviceId: string | undefined;
 }
 
-const PlayListCard = ({ id, imageUrl, name, isActive, isPlaying, deviceId }: Props) => {
-  const queryClient = useQueryClient();
-
-  const playMutation = useMutation({
-    mutationFn: (id: string) => fetchPlayPlaylist(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-    },
-  });
-
-  const pauseMutation = useMutation({
-    mutationFn: fetchPlaybackPause,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-    },
-  });
-
-  const resumeMutation = useMutation({
-    mutationFn: () => fetchPlaybackResume(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-    },
-  });
+const PlayListCard = ({ uri, imageUrl, name, isActive, isPlaying }: Props) => {
+  const { pause, resume, play } = usePlaybackActions();
 
   const onPlayPauseLibrary = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (isPlaying && isActive) pauseMutation.mutate();
-    else if (isActive && deviceId) resumeMutation.mutate();
-    else playMutation.mutate(id);
+    if (isPlaying && isActive) pause();
+    else if (isActive) resume();
+    else play({ uri });
   };
 
   return (
-    <Link to={"/playlist/$id"} params={{ id }}>
+    <Link to={"/playlist/$uri"} params={{ uri }}>
       <div className={styles.card}>
         <div className={`${styles.image_wrapper} ${isActive && isPlaying && styles.active_image}`}>
           <img src={imageUrl} alt="" className={styles.image} />

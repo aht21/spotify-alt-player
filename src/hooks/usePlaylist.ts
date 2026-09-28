@@ -1,27 +1,13 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchPlaylist, fetchPlayPlaylist } from "../services/api/playlists";
+import { useQuery } from "@tanstack/react-query";
+import type { Playlist } from "../types/playlists";
+import { fetchPlaylist } from "../services/api/playlists";
 
-const usePlaylist = (id: string) => {
-  const queryClient = useQueryClient();
-
-  const { data, isLoading, isError } = useQuery({
+const usePlaylist = <T = Playlist>(id: string, select?: (data: Playlist) => T) => {
+  return useQuery({
     queryKey: ["playlist", id],
     queryFn: () => fetchPlaylist(id),
+    select,
   });
-
-  const playMutation = useMutation({
-    mutationFn: (id: string) => fetchPlayPlaylist(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-    },
-  });
-
-  return {
-    data,
-    isLoading,
-    isError,
-    play: () => playMutation.mutate(id),
-  };
 };
 
 export default usePlaylist;

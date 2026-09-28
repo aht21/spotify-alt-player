@@ -1,4 +1,47 @@
+.no_data {
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+  opacity: 0.6;
+}
+
 .playlist_tracks {
   display: flex;
   flex-direction: column;
+}
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.info {
+  display: flex;
+}
+
+.number {
+  width: 3rem;
+  text-align: center;
+}
+
+.title {
+  width: 20rem;
+  margin-left: 3.8rem;
+}
+
+.album {
+  width: 10rem;
+}
+
+.time_added {
+  width: 8rem;
+}
+
+.duration {
+  margin: 0 1.5rem 0 2.6rem;
 }

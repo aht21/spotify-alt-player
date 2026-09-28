@@ -5,12 +5,8 @@ export function fetchPlaybackState() {
   return spotifyFetch<PlaybackState>("/me/player");
 }
 
-export function fetchPlaybackPrevious() {
-  return spotifyFetch("/me/player/previous", { method: "POST" });
-}
-
-export function fetchPlaybackNext() {
-  return spotifyFetch("/me/player/next", { method: "POST" });
+export function fetchPlaybackPause() {
+  return spotifyFetch("/me/player/pause", { method: "PUT" });
 }
 
 export function fetchPlaybackResume() {
@@ -19,8 +15,24 @@ export function fetchPlaybackResume() {
   });
 }
 
-export function fetchPlaybackPause() {
-  return spotifyFetch("/me/player/pause", { method: "PUT" });
+export function fetchPlaybackPlay(uri: string, offset: number = 0) {
+  return spotifyFetch("/me/player/play", {
+    method: "PUT",
+    body: JSON.stringify({
+      context_uri: uri,
+      offset: {
+        position: offset,
+      },
+    }),
+  });
+}
+
+export function fetchPlaybackPrevious() {
+  return spotifyFetch("/me/player/previous", { method: "POST" });
+}
+
+export function fetchPlaybackNext() {
+  return spotifyFetch("/me/player/next", { method: "POST" });
 }
 
 export function fetchPlaybackShuffle(state: boolean) {

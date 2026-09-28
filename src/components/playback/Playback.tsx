@@ -1,4 +1,4 @@
-import { usePlaybackContext } from "../../context/playbackProvider";
+import usePlayback from "../../hooks/usePlayback";
 import Skeleton from "./skeleton";
 import CurrentTrack from "./currentTrack";
 import Controllers from "./controllers";
@@ -8,7 +8,12 @@ import Volume from "./volume";
 import styles from "./playback.module.css";
 
 const Playback = () => {
-  const { data, isLoading } = usePlaybackContext();
+  const { data, isLoading } = usePlayback((playbackData) => ({
+    item: playbackData?.item,
+    isPlaying: playbackData?.is_playing,
+    progressMs: playbackData?.progress_ms,
+    device: playbackData?.device,
+  }));
 
   if (isLoading) {
     return <Skeleton />;
@@ -41,18 +46,18 @@ const Playback = () => {
 
         <div className={styles.controllers_wrapper}>
           <Controllers />
-          {data?.item === null || data?.progress_ms === null ? (
+          {data?.item === null || data?.progressMs === null ? (
             <div className={styles.no_track_range}></div>
           ) : (
             <Range
-              progressMs={data.progress_ms}
+              progressMs={data.progressMs}
               durationMs={data.item.duration_ms}
-              isPlaying={data.is_playing}
+              isPlaying={data.isPlaying}
             />
           )}
         </div>
         <div className={styles.playback_settings}>
-          <Device isPlaying={data.is_playing} />
+          <Device isPlaying={data.isPlaying} />
           <Volume value={data.device.volume_percent} supports={data.device.supports_volume} />
         </div>
       </div>

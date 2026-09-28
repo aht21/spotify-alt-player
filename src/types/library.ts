@@ -9,10 +9,10 @@ export interface LibraryTracks {
   offset: number;
   previous: string | null;
   total: number;
-  items: LibraryTrack[];
+  items: PlaylistTrack[];
 }
 
-export interface LibraryTrack {
+export interface PlaylistTrack {
   added_at: string;
-  track: Track;
+  item: Track;
 }

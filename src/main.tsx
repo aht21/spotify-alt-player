@@ -17,7 +17,7 @@ declare module "@tanstack/react-router" {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 2,
+      retry: 0,
     },
   },
 });

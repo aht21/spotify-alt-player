@@ -2,7 +2,7 @@ import type { Track } from ".";
 
 export interface PlaybackState {
   device: PlaybackDevice;
-  repeat_state: "off" | "track" | "context";
+  repeat_state: RepeatState;
   shuffle_state: boolean;
   context: PlaybackContext | null;
   timestamp: number;
@@ -12,6 +12,8 @@ export interface PlaybackState {
   currently_playing_type: "track" | "episode" | "ad" | "unknown";
   actions: PlaybackActions;
 }
+
+export type RepeatState = "off" | "track" | "context";
 
 interface PlaybackDevice {
   id: string;

@@ -1,4 +1,8 @@
+import { isTokenExpired, refreshAccessToken } from "../auth/refresh";
+
 export async function spotifyFetch<T>(endpoint: string, init?: RequestInit): Promise<T> {
+  if (isTokenExpired()) await refreshAccessToken();
+
   const token = localStorage.getItem("access_token");
 
   if (!token) {
