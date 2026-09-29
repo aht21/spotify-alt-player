@@ -1,21 +1,14 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchAvailableDevices, fetchTransferPlayback } from "../../services/api/device";
+import { useQuery } from "@tanstack/react-query";
+import { fetchAvailableDevices } from "../../services/api/device";
 import styles from "./activeDevice.module.css";
+import usePlaybackActions from "../../hooks/usePlaybackActions";
 
 const ActiveDevice = () => {
-  const queryClient = useQueryClient();
+  const { transfer } = usePlaybackActions();
 
   const { data, isLoading } = useQuery({
     queryKey: ["devices"],
     queryFn: fetchAvailableDevices,
-  });
-
-  const transferMutation = useMutation({
-    mutationFn: (deviceId: string) => fetchTransferPlayback(deviceId, false),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-      queryClient.invalidateQueries({ queryKey: ["devices"] });
-    },
   });
 
   if (isLoading)
@@ -52,7 +45,7 @@ const ActiveDevice = () => {
           <button
             key={index}
             className={styles.device_item}
-            onClick={() => transferMutation.mutate(item.id)}
+            onClick={() => transfer({ deviceId: item.id })}
           >
             {item.name}
           </button>

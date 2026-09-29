@@ -23,12 +23,11 @@ function AuthenticatedLayout() {
   const { data, isLoading } = usePlayback((playbackData) => ({
     device: playbackData?.device,
   }));
-  console.log(data);
 
   return (
     <ThemeProvider>
       <div className={styles.wrapper}>
-        {!isLoading && data === null ? <ActiveDevice /> : null}
+        {!isLoading && data?.device === undefined ? <ActiveDevice /> : null}
 
         <div className={styles.app}>
           <div className={styles.header_wrapper}>

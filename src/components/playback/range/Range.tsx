@@ -11,7 +11,7 @@ interface Props {
   isPlaying: boolean;
 }
 
-const PROGRESS_UPDATE_INTERVAL = 100;
+const PROGRESS_UPDATE_INTERVAL = 200;
 
 const formatTime = (ms: number) => {
   const minutes = Math.floor(ms / 60_000);
@@ -27,6 +27,11 @@ const Range = ({ progressMs, durationMs, isPlaying }: Props) => {
 
   const [displayedProgressMs, setDisplayedProgressMs] = useState(progressMs);
   const [isDragging, setIsDragging] = useState(false);
+
+  const invalidate = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    await queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+  };
 
   // synchronize Spotify
   useEffect(() => {
@@ -58,21 +63,13 @@ const Range = ({ progressMs, durationMs, isPlaying }: Props) => {
       return;
     }
 
-    queryClient.invalidateQueries({
-      queryKey: ["playback-state"],
-    });
+    invalidate();
   }, [displayedProgressMs, durationMs, isDragging, isPlaying, queryClient]);
 
   const seekMutation = useMutation({
     mutationFn: fetchPlaybackSeek,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: ["playback-state"],
-      });
-
-      setIsDragging(false);
-    },
-    onError: () => {
+    onSuccess: invalidate,
+    onSettled: () => {
       setIsDragging(false);
     },
   });

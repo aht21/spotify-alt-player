@@ -2,9 +2,9 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useCallback, useRef } from "react";
 import { fetchPlaylistItems } from "../../services/api/playlists";
 import usePlayback from "../../hooks/usePlayback";
-import LikedTrack from "./playlistTrack";
+import PlaylistTrack from "./playlistTrack";
 import styles from "./playlistTracks.module.css";
-import type { PlaylistTrack } from "../../types/library";
+import type { PlaylistTrack as PlaylistTrackType } from "../../types/library";
 
 interface Props {
   id: string;
@@ -52,8 +52,9 @@ const PlaylistTracks = ({ id, uri }: Props) => {
     );
   }
 
-  const items: PlaylistTrack[] = data.pages.flatMap((page) => page.items);
+  const items: PlaylistTrackType[] = data.pages.flatMap((page) => page.items);
   const targetIndex = items.length - 10;
+  let inactiveTracks = 0;
 
   return (
     <div className={styles.playlist_tracks}>
@@ -67,21 +68,26 @@ const PlaylistTracks = ({ id, uri }: Props) => {
         <span className={styles.duration}>Time</span>
       </div>
 
-      {items.map((item, index) => (
-        <div key={item.item.id} ref={index === targetIndex ? triggerRef : undefined}>
-          <LikedTrack
-            num={index + 1}
-            uri={uri}
-            imageSrc={item.item.album.images[1]?.url}
-            name={item.item.name}
-            artists={item.item.artists}
-            album={item.item.album}
-            addedAt={item.added_at}
-            durationMs={item.item.duration_ms}
-            isActive={playbackData?.item?.id === item.item.id}
-          />
-        </div>
-      ))}
+      {items.map((item, index) => {
+        if (item.item.is_playable === false) inactiveTracks++;
+
+        return (
+          <div key={item.item.id} ref={index === targetIndex ? triggerRef : undefined}>
+            <PlaylistTrack
+              num={index + 1 - inactiveTracks}
+              uri={uri}
+              imageSrc={item.item.album.images[1]?.url}
+              name={item.item.name}
+              artists={item.item.artists}
+              album={item.item.album}
+              addedAt={item.added_at}
+              durationMs={item.item.duration_ms}
+              isPlayable={item.item.is_playable}
+              isActive={playbackData?.item?.id === item.item.id}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };

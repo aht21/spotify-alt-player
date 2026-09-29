@@ -6,6 +6,7 @@ export interface Track {
   duration_ms: number;
   explicit: boolean;
   is_local: boolean;
+  is_playable: boolean;
   popularity: number;
   preview_url: string | null;
   track_number: number;

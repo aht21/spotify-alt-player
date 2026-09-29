@@ -19,7 +19,7 @@ const Playback = () => {
     return <Skeleton />;
   }
 
-  if (data == undefined) {
+  if (data?.device == undefined) {
     return (
       <div className={styles.player}>
         <div className={styles.no_player}>playback not found</div>

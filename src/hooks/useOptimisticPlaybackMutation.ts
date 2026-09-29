@@ -11,6 +11,10 @@ export function useOptimisticPlaybackMutation<TVariables = void>(
   toOptimisticState: (variables: TVariables) => Partial<PlaybackState>,
 ) {
   const queryClient = useQueryClient();
+  const invalidate = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    await queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+  };
 
   return useMutation({
     mutationFn,
@@ -31,8 +35,6 @@ export function useOptimisticPlaybackMutation<TVariables = void>(
         queryClient.setQueryData(["playback-state"], context.previous);
       }
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-    },
+    onSettled: invalidate,
   });
 }

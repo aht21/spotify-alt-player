@@ -19,6 +19,7 @@ interface Props {
   };
   addedAt: string;
   durationMs: number;
+  isPlayable: boolean;
   isActive: boolean;
 }
 
@@ -33,6 +34,7 @@ const PlaylistTrack = ({
   album,
   addedAt,
   durationMs,
+  isPlayable,
   isActive,
 }: Props) => {
   const { play, pause } = usePlaybackActions();
@@ -45,6 +47,50 @@ const PlaylistTrack = ({
 
   const durationMin = Math.floor(durationMs / 60000);
   const durationSec = Math.floor((durationMs % 60000) / 1000);
+
+  if (!isPlayable) {
+    return (
+      <div className={`${styles.track} ${styles.unplayable}`}>
+        <div className={styles.section}>
+          <div className={styles.number_wrapper}>-</div>
+          <img className={styles.image} src={imageSrc} />
+          <div className={styles.info}>
+            <span className={`${styles.name} ${styles.name_unplayable}`}>{name}</span>
+            <span className={styles.artists_list}>
+              {artists.map((artist, index) => (
+                <span className={styles.artist} key={artist.id}>
+                  {artist.name}
+                  {index < artists.length - 1 && ","}
+                </span>
+              ))}
+            </span>
+          </div>
+        </div>
+        <div className={styles.section}>
+          <span className={styles.album_name}>{album.name}</span>
+        </div>
+        <div className={styles.section}>
+          <span className={styles.added_ago}>{formatDate(addedAt)}</span>
+        </div>
+        <div className={styles.section}>
+          <button
+            className={`${styles.save_button} ${styles.save_button_unplayable}`}
+            onClick={onSaveRemove}
+            // disabled={saveMutation.isPending || removeMutation.isPending}
+          >
+            {true ? (
+              <SaveMarkerIcon height="1.3rem" width="1.3rem" />
+            ) : (
+              <img src={plusIcon} alt="" className={styles.save_image} />
+            )}
+          </button>
+          <span
+            className={styles.duration}
+          >{`${durationMin} : ${String(durationSec).padStart(2, "0")}`}</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.track}>
@@ -70,7 +116,7 @@ const PlaylistTrack = ({
         </div>
         <img className={styles.image} src={imageSrc} />
         <div className={styles.info}>
-          <span className={`${isActive && styles.name_active}`}>{name}</span>
+          <span className={`${isActive && styles.name_active} ${styles.name}`}>{name}</span>
           <span className={styles.artists_list}>
             {artists.map((artist, index) => (
               <span className={styles.artist} key={artist.id}>

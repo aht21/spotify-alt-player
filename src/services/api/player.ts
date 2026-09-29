@@ -47,6 +47,13 @@ export function fetchPlaybackRepeat(state: "track" | "context" | "off") {
   });
 }
 
+export const fetchTransferPlayback = (deviceId: string, play: boolean) => {
+  return spotifyFetch("/me/player", {
+    method: "PUT",
+    body: JSON.stringify({ device_ids: [deviceId], play }),
+  });
+};
+
 export function fetchPlaybackSetVolume(valuePercent: number) {
   return spotifyFetch(`/me/player/volume?volume_percent=${valuePercent}`, { method: "PUT" });
 }

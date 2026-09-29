@@ -7,13 +7,17 @@ import {
   fetchPlaybackRepeat,
   fetchPlaybackResume,
   fetchPlaybackShuffle,
+  fetchTransferPlayback,
 } from "../services/api/player";
 import { useOptimisticPlaybackMutation } from "./useOptimisticPlaybackMutation";
 import type { RepeatState } from "../types/player";
 
 const usePlaybackActions = () => {
   const queryClient = useQueryClient();
-  const invalidate = () => queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+  const invalidate = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    await queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+  };
 
   const pauseMutation = useOptimisticPlaybackMutation(fetchPlaybackPause, () => ({
     is_playing: false,
@@ -49,6 +53,16 @@ const usePlaybackActions = () => {
     (state: RepeatState) => ({ repeat_state: state }),
   );
 
+  const transferMutation = useMutation({
+    mutationFn: ({ deviceId, isPlaying = false }: { deviceId: string; isPlaying?: boolean }) =>
+      fetchTransferPlayback(deviceId, isPlaying),
+    onSuccess: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+      queryClient.invalidateQueries({ queryKey: ["devices"] });
+    },
+  });
+
   return {
     pause: pauseMutation.mutate,
     resume: resumeMutation.mutate,
@@ -57,6 +71,7 @@ const usePlaybackActions = () => {
     next: nextMutation.mutate,
     shuffle: shuffleMutation.mutate,
     repeat: repeatMutation.mutate,
+    transfer: transferMutation.mutate,
   };
 };
 

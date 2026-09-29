@@ -6,8 +6,8 @@ const usePlayback = <T = PlaybackState>(select?: (data: PlaybackState) => T) => 
   return useQuery({
     queryKey: ["playback-state"],
     queryFn: fetchPlaybackState,
-    refetchInterval: 5000,
-    staleTime: 4000,
+    refetchInterval: 4000,
+    staleTime: 3000,
     select,
   });
 };
