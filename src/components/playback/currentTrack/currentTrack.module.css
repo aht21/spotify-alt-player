@@ -6,7 +6,17 @@
   min-width: 10rem;
 }
 
+.image_wrapper {
+  position: relative;
+  display: block;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  min-height: 4rem;
+  min-width: 4rem;
+}
+
 .image {
+  display: block;
   height: 4rem;
   width: 4rem;
   background: rgba(255, 255, 255, 0.08);
@@ -17,8 +27,47 @@
     rgba(255, 255, 255, 0.12) 33%
   );
   background-size: 200% 100%;
-  border-radius: 0.6rem;
   animation: 1.5s shine linear infinite;
+}
+
+.expand_button_wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4rem;
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+}
+
+.expand_button {
+  opacity: 0;
+  display: flex;
+  padding: 0.6rem;
+  border-radius: 1.5rem;
+  background-color: var(--background-color);
+  backdrop-filter: blur(var(--background-blur));
+  transition: 0.4s;
+}
+
+.expand_button_wrapper:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.expand_button_wrapper:hover .expand_button {
+  opacity: 1;
+}
+
+.expand_button:hover {
+  background-color: var(--second-background-color);
+}
+
+.expand_icon {
+  display: block;
+  height: 1.6rem;
+  width: 1.6rem;
 }
 
 .info {

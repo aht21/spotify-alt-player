@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router";
 import { isAuthenticated } from "../../services/auth";
 import ThemeProvider from "../../context/themeProvider";
+import usePlayback from "../../hooks/usePlayback";
 import ProfilePreview from "../../components/profilePreview";
 import Playback from "../../components/playback";
-import styles from "./index.module.css";
-import usePlayback from "../../hooks/usePlayback";
 import ActiveDevice from "../../components/activeDevice";
+import BigPlayback from "../../components/bigPlayback";
+import styles from "./index.module.css";
 
 export const Route = createFileRoute("/_authenticated")({
   beforeLoad: () => {
@@ -20,6 +22,7 @@ export const Route = createFileRoute("/_authenticated")({
 });
 
 function AuthenticatedLayout() {
+  const [isExpanded, setIsExpanded] = useState(false);
   const { data, isLoading } = usePlayback((playbackData) => ({
     device: playbackData?.device,
   }));
@@ -40,9 +43,10 @@ function AuthenticatedLayout() {
             <Outlet />
           </div>
           <div className={styles.playback_wrapper}>
-            <Playback />
+            <Playback onToggleExpand={() => setIsExpanded((v) => !v)} />
           </div>
         </div>
+        <BigPlayback isExpanded={isExpanded} onToggleExpand={() => setIsExpanded((v) => !v)} />
       </div>
     </ThemeProvider>
   );

@@ -7,7 +7,11 @@ import Device from "./device";
 import Volume from "./volume";
 import styles from "./playback.module.css";
 
-const Playback = () => {
+interface Props {
+  onToggleExpand: () => void;
+}
+
+const Playback = ({ onToggleExpand }: Props) => {
   const { data, isLoading } = usePlayback((playbackData) => ({
     item: playbackData?.item,
     isPlaying: playbackData?.is_playing,
@@ -41,6 +45,7 @@ const Playback = () => {
             artists={data.item.artists}
             imageSrc={data.item.album.images[1].url}
             uri={data.item.uri}
+            onToggleExpand={onToggleExpand}
           />
         )}
 
