@@ -76,7 +76,6 @@ const PlaylistTrack = ({
           <button
             className={`${styles.save_button} ${styles.save_button_unplayable}`}
             onClick={onSaveRemove}
-            // disabled={saveMutation.isPending || removeMutation.isPending}
           >
             {true ? (
               <SaveMarkerIcon height="1.3rem" width="1.3rem" />
@@ -134,11 +133,7 @@ const PlaylistTrack = ({
         <span className={styles.added_ago}>{formatDate(addedAt)}</span>
       </div>
       <div className={styles.section}>
-        <button
-          className={styles.save_button}
-          onClick={onSaveRemove}
-          // disabled={saveMutation.isPending || removeMutation.isPending}
-        >
+        <button className={styles.save_button} onClick={onSaveRemove}>
           {true ? (
             <SaveMarkerIcon height="1.3rem" width="1.3rem" />
           ) : (

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import { fetchPlaybackSeek } from "../../../services/api/player";
-
+import { fetchPlaybackSeek } from "../../services/api/player";
 import styles from "./range.module.css";
 
 interface Props {

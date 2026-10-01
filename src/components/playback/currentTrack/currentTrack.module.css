@@ -52,6 +52,14 @@
   transition: 0.4s;
 }
 
+.expand_icon {
+  display: block;
+  height: 1.6rem;
+  width: 1.6rem;
+  opacity: 0.7;
+  transition: 0.4s;
+}
+
 .expand_button_wrapper:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -64,10 +72,8 @@
   background-color: var(--second-background-color);
 }
 
-.expand_icon {
-  display: block;
-  height: 1.6rem;
-  width: 1.6rem;
+.expand_button:hover .expand_icon {
+  opacity: 1;
 }
 
 .info {
@@ -76,22 +82,27 @@
   gap: 0.3rem;
   overflow: hidden;
   position: relative;
+  min-width: 0;
+}
+
+.marquee {
+  overflow: hidden;
+  max-width: 100%;
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .track_name {
   display: inline-block;
-  transform: translateX(0);
-  transition: var(--duration_track) linear;
   white-space: nowrap;
+  will-change: transform;
 }
 
 .artists_list {
-  display: flex;
+  display: inline-flex;
   white-space: nowrap;
   flex-wrap: nowrap;
-  /* transition: var(--duration_artist) linear;
-  padding-right: 100%;
-  transform: translateX(0); */
+  will-change: transform;
 }
 
 .artist_item {

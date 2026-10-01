@@ -1,12 +1,12 @@
-import nextIcon from "../../../assets/icons/next.svg";
-import pauseIcon from "../../../assets/icons/pause.svg";
-import playIcon from "../../../assets/icons/play.svg";
-import ShuffleIcon from "../../shuffleIcon";
+import nextIcon from "../../assets/icons/next.svg";
+import pauseIcon from "../../assets/icons/pause.svg";
+import playIcon from "../../assets/icons/play.svg";
+import ShuffleIcon from "../shuffleIcon";
 import styles from "./controllers.module.css";
-import RepeatIcon from "../../repeatIcon/RepeatIcon.tsx";
-import usePlaybackActions from "../../../hooks/usePlaybackActions.ts";
-import usePlayback from "../../../hooks/usePlayback.ts";
-import type { RepeatState } from "../../../types/player.ts";
+import RepeatIcon from "../repeatIcon/RepeatIcon.tsx";
+import usePlaybackActions from "../../hooks/usePlaybackActions.ts";
+import usePlayback from "../../hooks/usePlayback.ts";
+import type { RepeatState } from "../../types/player.ts";
 
 const NEXT_REPEAT_STATE: Record<RepeatState, RepeatState> = {
   off: "context",

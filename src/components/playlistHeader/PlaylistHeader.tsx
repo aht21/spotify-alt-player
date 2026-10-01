@@ -1,11 +1,12 @@
 import playIcon from "../../assets/icons/play.svg";
 import pauseIcon from "../../assets/icons/pause.svg";
 import linkIcon from "../../assets/icons/external_link.svg";
+import { decodeHtml } from "../../utils/decodeHtml";
 import usePlaybackActions from "../../hooks/usePlaybackActions";
 import usePlayback from "../../hooks/usePlayback";
 import usePlaylist from "../../hooks/usePlaylist";
+import Skeleton from "./skeleton";
 import styles from "./playlistHeader.module.css";
-import { decodeHtml } from "../../utils/decodeHtml";
 
 interface Props {
   id: string;
@@ -38,7 +39,8 @@ const PlaylistHeader = ({ id, uri }: Props) => {
     else resume();
   };
 
-  if (isLoading || isError || !data) return;
+  if (isLoading) return <Skeleton />;
+  if (isError || !data) return;
 
   const contributors = [
     {
@@ -78,7 +80,6 @@ const PlaylistHeader = ({ id, uri }: Props) => {
             <img className={styles.url_link_image} src={linkIcon} alt="" />
           </a>
         </div>
-        {/* <span className={styles.info}>97 songs, 4hr 13min</span> */}
       </div>
     </div>
   );
