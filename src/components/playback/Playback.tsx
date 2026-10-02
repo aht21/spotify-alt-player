@@ -1,5 +1,5 @@
 import usePlayback from "../../hooks/usePlayback";
-import Controllers from "../controllers";
+import PlaybackControllers from "../playbackControllers";
 import PlaybackProgress from "../playbackProgress";
 import Skeleton from "./skeleton";
 import CurrentTrack from "./currentTrack";
@@ -50,7 +50,7 @@ const Playback = ({ onToggleExpand }: Props) => {
         )}
 
         <div className={styles.controllers_wrapper}>
-          <Controllers />
+          <PlaybackControllers />
           {data?.item === null || data?.progressMs === null ? (
             <div className={styles.no_track_range}></div>
           ) : (
@@ -63,7 +63,7 @@ const Playback = ({ onToggleExpand }: Props) => {
         </div>
         <div className={styles.playback_settings}>
           <Device isPlaying={data.isPlaying} />
-          <Volume value={data.device.volume_percent} supports={data.device.supports_volume} />
+          <Volume />
         </div>
       </div>
     </div>

@@ -7,6 +7,12 @@
   height: 14px;
 }
 
+.stopped > .bar {
+  animation: none;
+  height: 4px;
+  transform: none;
+}
+
 .bar {
   width: 2px;
   height: 100%;

@@ -46,7 +46,7 @@ function AuthenticatedLayout() {
             {!isExpanded && <Playback onToggleExpand={() => setIsExpanded((v) => !v)} />}
           </div>
         </div>
-        {isExpanded && <BigPlayback onToggleExpand={() => setIsExpanded((v) => !v)} />}
+        <BigPlayback isExpanded={isExpanded} onToggleExpand={() => setIsExpanded((v) => !v)} />
       </div>
     </ThemeProvider>
   );

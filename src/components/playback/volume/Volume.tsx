@@ -5,16 +5,19 @@ import volumeXmarkIcon from "../../../assets/icons/volume_xmark.svg";
 import volumeMinIcon from "../../../assets/icons/volume_min.svg";
 import volumeMaxIcon from "../../../assets/icons/volume_max.svg";
 import styles from "./volume.module.css";
+import usePlayback from "../../../hooks/usePlayback.ts";
 
-interface Props {
-  value: number | null;
-  supports: boolean;
-}
-
-const Volume = ({ value, supports }: Props) => {
+const Volume = () => {
   const rangeInputRef = useRef<HTMLInputElement | null>(null);
   const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [localVolume, setLocalVolume] = useState(value || 50);
+  const { data } = usePlayback((playbackData) => ({
+    volume_percent: playbackData?.device.volume_percent,
+    supports: playbackData?.device.supports_volume,
+  }));
+
+  const [localVolume, setLocalVolume] = useState(
+    data?.volume_percent === null || data?.volume_percent === undefined ? 50 : data?.volume_percent,
+  );
   const queryClient = useQueryClient();
 
   const updateTrackStyle = useCallback(() => {
@@ -63,8 +66,8 @@ const Volume = ({ value, supports }: Props) => {
   };
 
   return (
-    <div className={`${styles.wrapper} ${supports ? "" : "disabled"}`}>
-      <button className={styles.mute} onClick={onMuteUnmute} disabled={!supports}>
+    <div className={`${styles.wrapper} ${data?.supports ? "" : "disabled"}`}>
+      <button className={styles.mute} onClick={onMuteUnmute} disabled={!data?.supports}>
         <img
           src={
             localVolume === 0 ? volumeXmarkIcon : localVolume < 50 ? volumeMinIcon : volumeMaxIcon
@@ -83,7 +86,7 @@ const Volume = ({ value, supports }: Props) => {
         ref={rangeInputRef}
         value={localVolume}
         onChange={onChangeVolume}
-        disabled={!supports}
+        disabled={!data?.supports}
       />
     </div>
   );
