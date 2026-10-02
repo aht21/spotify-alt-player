@@ -4,8 +4,8 @@ import usePlaybackActions from "../../../hooks/usePlaybackActions";
 import plusIcon from "../../../assets/icons/plus_circle.svg";
 import playIcon from "../../../assets/icons/play_alt.svg";
 import pauseIcon from "../../../assets/icons/pause_alt.svg";
-import PlayingAnimation from "../../playingAnimation";
-import SaveMarkerIcon from "../../saveMarkerIcon";
+import PlayingAnimation from "../../icons/playingAnimation";
+import SaveMarkerIcon from "../../icons/saveMarkerIcon";
 import styles from "./playlistTrack.module.css";
 
 interface Props {

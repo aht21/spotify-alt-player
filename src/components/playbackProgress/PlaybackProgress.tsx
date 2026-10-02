@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchPlaybackSeek } from "../../services/api/player";
-import styles from "./range.module.css";
+import styles from "./playbackProgress.module.css";
 
 interface Props {
   progressMs: number;
@@ -20,7 +20,7 @@ const formatTime = (ms: number) => {
   return `${minutes}:${seconds}`;
 };
 
-const Range = ({ progressMs, durationMs, isPlaying }: Props) => {
+const PlaybackProgress = ({ progressMs, durationMs, isPlaying }: Props) => {
   const queryClient = useQueryClient();
 
   const [displayedProgressMs, setDisplayedProgressMs] = useState(progressMs);
@@ -111,4 +111,4 @@ const Range = ({ progressMs, durationMs, isPlaying }: Props) => {
   );
 };
 
-export default Range;
+export default PlaybackProgress;

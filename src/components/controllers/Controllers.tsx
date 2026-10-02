@@ -1,9 +1,9 @@
 import nextIcon from "../../assets/icons/next.svg";
 import pauseIcon from "../../assets/icons/pause.svg";
 import playIcon from "../../assets/icons/play.svg";
-import ShuffleIcon from "../shuffleIcon";
+import ShuffleIcon from "../icons/shuffleIcon/index.ts";
 import styles from "./controllers.module.css";
-import RepeatIcon from "../repeatIcon/RepeatIcon.tsx";
+import RepeatIcon from "../icons/repeatIcon/RepeatIcon.tsx";
 import usePlaybackActions from "../../hooks/usePlaybackActions.ts";
 import usePlayback from "../../hooks/usePlayback.ts";
 import type { RepeatState } from "../../types/player.ts";

@@ -5,7 +5,7 @@ import {
   fetchLibrarySave,
 } from "../../services/api/library.ts";
 import plusIcon from "../../assets/icons/plus_circle.svg";
-import SaveMarkerIcon from "../saveMarkerIcon";
+import SaveMarkerIcon from "../icons/saveMarkerIcon/index.ts";
 import styles from "./saveMarker.module.css";
 
 interface Props {

@@ -1,6 +1,6 @@
 import usePlayback from "../../hooks/usePlayback";
 import Controllers from "../controllers";
-import Range from "../range";
+import PlaybackProgress from "../playbackProgress";
 import Skeleton from "./skeleton";
 import CurrentTrack from "./currentTrack";
 import Device from "./device";
@@ -54,7 +54,7 @@ const Playback = ({ onToggleExpand }: Props) => {
           {data?.item === null || data?.progressMs === null ? (
             <div className={styles.no_track_range}></div>
           ) : (
-            <Range
+            <PlaybackProgress
               progressMs={data.progressMs}
               durationMs={data.item.duration_ms}
               isPlaying={data.isPlaying}

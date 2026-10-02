@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router";
 import { isAuthenticated } from "../../services/auth";
-import ThemeProvider from "../../context/themeProvider";
 import usePlayback from "../../hooks/usePlayback";
-import ProfilePreview from "../../components/profilePreview";
+import ThemeProvider from "../../context/themeProvider";
+import UserProfilePreview from "../../components/userProfilePreview";
 import Playback from "../../components/playback";
 import ActiveDevice from "../../components/activeDevice";
 import BigPlayback from "../../components/bigPlayback";
@@ -37,16 +37,16 @@ function AuthenticatedLayout() {
             <Link to={"/"} className={styles.brand}>
               Spotify / alt player
             </Link>
-            <ProfilePreview />
+            <UserProfilePreview />
           </div>
           <div className={styles.app_content}>
             <Outlet />
           </div>
           <div className={styles.playback_wrapper}>
-            <Playback onToggleExpand={() => setIsExpanded((v) => !v)} />
+            {!isExpanded && <Playback onToggleExpand={() => setIsExpanded((v) => !v)} />}
           </div>
         </div>
-        <BigPlayback isExpanded={isExpanded} onToggleExpand={() => setIsExpanded((v) => !v)} />
+        {isExpanded && <BigPlayback onToggleExpand={() => setIsExpanded((v) => !v)} />}
       </div>
     </ThemeProvider>
   );

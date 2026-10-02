@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { createPortal } from "react-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchAvailableDevices } from "../../../services/api/device.ts";
-import PlayingAnimation from "../../playingAnimation";
+import PlayingAnimation from "../../icons/playingAnimation/index.ts";
 import DeviceIcon from "../../deviceIcon";
 import styles from "./device.module.css";
 import usePlaybackActions from "../../../hooks/usePlaybackActions.ts";
+import { useClickOutside } from "../../../hooks/useClickOutside.ts";
 
 interface Props {
   isPlaying: boolean;
@@ -15,10 +16,8 @@ const Device = ({ isPlaying }: Props) => {
   const queryClient = useQueryClient();
   const { transfer } = usePlaybackActions();
 
-  const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, toggle, ref: menuRef } = useClickOutside<HTMLDivElement>([buttonRef]);
 
   const portalRoot = document.getElementById("player");
 
@@ -27,33 +26,11 @@ const Device = ({ isPlaying }: Props) => {
     queryFn: fetchAvailableDevices,
   });
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
-
   const openCloseMenu = () => {
     if (!isOpen) {
       queryClient.invalidateQueries({ queryKey: ["devices"] });
     }
-
-    setIsOpen((prev) => !prev);
+    toggle();
   };
 
   if (isLoading) {

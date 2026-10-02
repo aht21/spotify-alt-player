@@ -1,43 +1,16 @@
-import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { fetchUserProfile } from "../../services/api/user";
 import { removeTokens } from "../../services/auth";
+import useUserProfile from "../../hooks/useUserProfile";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import externalLinkIcon from "../../assets/icons/external_link.svg";
 import logoutIcon from "../../assets/icons/logout.svg";
-import styles from "./profilePreview.module.css";
+import styles from "./userProfilePreview.module.css";
 
-const ProfilePreview = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["user-profile"],
-    queryFn: fetchUserProfile,
-  });
-
+const UserProfilePreview = () => {
+  const { data, isLoading, isError } = useUserProfile();
   const navigate = useNavigate();
-  const menuRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
+  const { isOpen, toggle, close, ref: wrapperRef } = useClickOutside<HTMLDivElement>();
 
   const onLogout = () => {
     removeTokens();
@@ -53,11 +26,10 @@ const ProfilePreview = () => {
     );
 
   return (
-    <div className={styles.user_preview_wrapper}>
+    <div className={styles.user_preview_wrapper} ref={wrapperRef}>
       <button
-        ref={buttonRef}
         className={`${styles.user_preview} ${isOpen ? styles.user_preview_open : ""}`}
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={toggle}
       >
         {data.images.length !== 0 ? (
           <img src={data.images[1].url} alt="" className={styles.user_image} />
@@ -66,7 +38,8 @@ const ProfilePreview = () => {
         )}
         <span>{data.display_name}</span>
       </button>
-      <div className={`${styles.menu} ${isOpen ? styles.menu_open : ""}`} ref={menuRef}>
+
+      <div className={`${styles.menu} ${isOpen ? styles.menu_open : ""}`}>
         <a
           className={`${styles.menu_item} ${styles.menu_item_link}`}
           href={data.external_urls.spotify}
@@ -78,7 +51,7 @@ const ProfilePreview = () => {
         <Link
           className={`${styles.menu_item} ${styles.menu_item_link}`}
           to={"/theme"}
-          onClick={() => setIsOpen(false)}
+          onClick={close}
         >
           Theme
         </Link>
@@ -92,4 +65,4 @@ const ProfilePreview = () => {
   );
 };
 
-export default ProfilePreview;
+export default UserProfilePreview;

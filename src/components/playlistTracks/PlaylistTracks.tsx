@@ -5,6 +5,7 @@ import usePlayback from "../../hooks/usePlayback";
 import PlaylistTrack from "./playlistTrack";
 import styles from "./playlistTracks.module.css";
 import type { PlaylistTrack as PlaylistTrackType } from "../../types/library";
+import usePlaylist from "../../hooks/usePlaylist";
 
 interface Props {
   id: string;
@@ -14,6 +15,9 @@ interface Props {
 const PlaylistTracks = ({ id, uri }: Props) => {
   const observer = useRef<IntersectionObserver | null>(null);
 
+  const { data: playlistData } = usePlaylist(id);
+  const { data: playbackData } = usePlayback();
+  console.log(playlistData, playbackData);
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ["playlist-songs", id],
     queryFn: ({ pageParam = 0 }) => fetchPlaylistItems(id, 50, pageParam),
@@ -21,8 +25,6 @@ const PlaylistTracks = ({ id, uri }: Props) => {
     getNextPageParam: (lastPage, allPages) =>
       lastPage.items.length === 50 ? allPages.length * 50 : undefined,
   });
-
-  const { data: playbackData } = usePlayback();
 
   const triggerRef = useCallback(
     (node: HTMLDivElement | null) => {

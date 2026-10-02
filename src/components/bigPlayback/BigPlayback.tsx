@@ -2,14 +2,13 @@ import usePlayback from "../../hooks/usePlayback";
 import minimiseIcon from "../../assets/icons/minimise.svg";
 import styles from "./bigPlayback.module.css";
 import Controllers from "../controllers";
-import Range from "../range";
+import PlaybackProgress from "../playbackProgress";
 
 interface Props {
-  isExpanded: boolean;
   onToggleExpand: () => void;
 }
 
-const BigPlayback = ({ isExpanded, onToggleExpand }: Props) => {
+const BigPlayback = ({ onToggleExpand }: Props) => {
   const { data, isLoading } = usePlayback((playbackData) => ({
     item: playbackData?.item,
     isPlaying: playbackData?.is_playing,
@@ -20,7 +19,7 @@ const BigPlayback = ({ isExpanded, onToggleExpand }: Props) => {
   if (!data || !data.item) return;
 
   return (
-    <div className={`${styles.playback_wrapper} ${isExpanded ? styles.playback_wrapper_open : ""}`}>
+    <div className={styles.playback_wrapper}>
       <div className={styles.container}>
         <button className={styles.minimize_button} onClick={onToggleExpand}>
           <img className={styles.minimize_icon} src={minimiseIcon} alt="" />
@@ -43,7 +42,7 @@ const BigPlayback = ({ isExpanded, onToggleExpand }: Props) => {
             {data?.item === null || data?.progressMs === null ? (
               <div className={styles.no_track_range}></div>
             ) : (
-              <Range
+              <PlaybackProgress
                 progressMs={data.progressMs}
                 durationMs={data.item.duration_ms}
                 isPlaying={data.isPlaying}
