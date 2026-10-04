@@ -12,3 +12,10 @@
   flex-direction: column;
   gap: 2.2rem;
 }
+
+.no_data {
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+  opacity: 0.6;
+}

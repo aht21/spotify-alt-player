@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 
-const DEFAULT_COLOR = "#1db954";
+const DEFAULT_COLOR = "#c8ff63";
 const DEFAULT_BLUR = 10;
 
 interface ThemeContextType {

@@ -1,11 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useCallback, useRef } from "react";
 import { fetchPlaylistItems } from "../../services/api/playlists";
+import type { PlaylistTrack as PlaylistTrackType } from "../../types/library";
 import usePlayback from "../../hooks/usePlayback";
 import PlaylistTrack from "./playlistTrack";
 import styles from "./playlistTracks.module.css";
-import type { PlaylistTrack as PlaylistTrackType } from "../../types/library";
-import usePlaylist from "../../hooks/usePlaylist";
 
 interface Props {
   id: string;
@@ -15,9 +14,7 @@ interface Props {
 const PlaylistTracks = ({ id, uri }: Props) => {
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const { data: playlistData } = usePlaylist(id);
   const { data: playbackData } = usePlayback();
-  console.log(playlistData, playbackData);
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ["playlist-songs", id],
     queryFn: ({ pageParam = 0 }) => fetchPlaylistItems(id, 50, pageParam),
@@ -42,17 +39,7 @@ const PlaylistTracks = ({ id, uri }: Props) => {
     [hasNextPage, isFetchingNextPage, fetchNextPage],
   );
 
-  if (isLoading) return null;
-
-  if (!data) {
-    return (
-      <div className={styles.no_data}>
-        <span>
-          Sorry, Spotify doesn't expose track lists for other users' playlists through the API(
-        </span>
-      </div>
-    );
-  }
+  if (isLoading || !data) return null;
 
   const items: PlaylistTrackType[] = data.pages.flatMap((page) => page.items);
   const targetIndex = items.length - 10;

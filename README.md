@@ -1,32 +1,29 @@
-# React + TypeScript + Vite
+# spotify / alt player
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+An alternative Spotify player: familiar features with a different design.
 
-Currently, two official plugins are available:
+![Preview](/public/images/main_preview.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Preview](/public/images/playlist_preview.png)
 
-## React Compiler
+## What it is
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Spotify Alt Player is a web client for Spotify that implements some of the service's features, reimagined with a different design.
 
-## Expanding the Oxlint configuration
+It's a **pet project** — not affiliated with Spotify, not commercial, built for
+learning and portfolio purposes.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Demo
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+To use the app, you need to follow the link and open Spotify on your device (the tracks will be played through it).
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+**Link:** https://demo-link.com
+
+## Features
+
+- Sign in with Spotify (OAuth 2.0 + PKCE)
+- Playback control
+- Browse your playlists
+- Browse your tracks
+- Customize theme
+- Big playback mode

@@ -6,6 +6,7 @@ import {
   fetchPlaybackPrevious,
   fetchPlaybackRepeat,
   fetchPlaybackResume,
+  fetchPlaybackSeek,
   fetchPlaybackShuffle,
   fetchTransferPlayback,
 } from "../services/api/player";
@@ -43,6 +44,11 @@ const usePlaybackActions = () => {
     onSuccess: invalidate,
   });
 
+  const resetProgressMutation = useMutation({
+    mutationFn: () => fetchPlaybackSeek(0),
+    onSuccess: invalidate,
+  });
+
   const shuffleMutation = useOptimisticPlaybackMutation(
     (state: boolean) => fetchPlaybackShuffle(state),
     (state: boolean) => ({ shuffle_state: state }),
@@ -69,6 +75,7 @@ const usePlaybackActions = () => {
     play: playMutation.mutate,
     prev: prevMutation.mutate,
     next: nextMutation.mutate,
+    resetProgress: resetProgressMutation.mutate,
     shuffle: shuffleMutation.mutate,
     repeat: repeatMutation.mutate,
     transfer: transferMutation.mutate,

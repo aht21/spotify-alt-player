@@ -1,0 +1,71 @@
+.wrapper {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M0 0h80M0 0v80' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='1' stroke-dasharray='3 6'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  background-position: -50px 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.preview {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.header {
+  gap: 1rem;
+  display: flex;
+  font-size: 5rem;
+  font-family: "Montserrat";
+  font-weight: 500;
+}
+
+.header_second {
+  color: var(--primary-color);
+}
+
+.desc {
+  max-width: 48rem;
+}
+
+.desc_first {
+  font-size: 1.2rem;
+}
+
+.desc_second {
+  font-size: 0.96rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.desc_third {
+  font-size: 0.96rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.source_link {
+  color: rgb(255, 255, 255);
+}
+
+.source_link:hover {
+  text-decoration: underline;
+}
+
+.login_button {
+  margin-top: 0.5rem;
+  background-color: var(--primary-color);
+  color: black;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  transition: 0.3s;
+}
+
+.login_button:hover {
+  opacity: 0.8;
+}

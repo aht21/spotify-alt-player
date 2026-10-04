@@ -6,8 +6,6 @@ const PlayingAnimation = () => {
     isPlaying: playbackData?.is_playing,
   }));
 
-  console.log(data?.isPlaying);
-
   return (
     <div
       className={`${styles.equalizer} ${data?.isPlaying ? "" : styles.stopped}`}

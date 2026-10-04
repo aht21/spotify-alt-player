@@ -19,14 +19,11 @@ const Controllers = () => {
     isPlaying: playbackData?.is_playing,
     repeatState: playbackData?.repeat_state,
     shuffleState: playbackData?.shuffle_state,
+    canSkipPrevious: (playbackData?.progress_ms || 0) > 5000,
   }));
-  const { pause, resume, prev, next, shuffle, repeat } = usePlaybackActions();
+  const { pause, resume, prev, next, resetProgress, shuffle, repeat } = usePlaybackActions();
 
   if (!data) return;
-
-  // const shuffleState = data?.shuffleState ?? false;
-  // const repeatState = (data?.repeatState ?? "off") as RepeatState;
-  // const isPlaying = data?.is_playing;
 
   const onPlayPause = () => (data.isPlaying ? pause() : resume());
   const onShuffle = () => {
@@ -53,7 +50,11 @@ const Controllers = () => {
       </button>
 
       <div className={styles.move_controls}>
-        <button disabled={isMutating} className={styles.control_button} onClick={() => prev()}>
+        <button
+          disabled={isMutating}
+          className={styles.control_button}
+          onClick={() => (data.canSkipPrevious ? resetProgress() : prev())}
+        >
           <img src={nextIcon} className={styles.prev_icon} alt="" />
         </button>
 

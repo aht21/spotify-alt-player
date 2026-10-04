@@ -28,26 +28,24 @@ function AuthenticatedLayout() {
   }));
 
   return (
-    <ThemeProvider>
-      <div className={styles.wrapper}>
-        {!isLoading && data?.device === undefined ? <ActiveDevice /> : null}
+    <div className={styles.wrapper}>
+      {!isLoading && data?.device === undefined ? <ActiveDevice /> : null}
 
-        <div className={styles.app}>
-          <div className={styles.header_wrapper}>
-            <Link to={"/"} className={styles.brand}>
-              Spotify / alt player
-            </Link>
-            <UserProfilePreview />
-          </div>
-          <div className={styles.app_content}>
-            <Outlet />
-          </div>
-          <div className={styles.playback_wrapper}>
-            {!isExpanded && <Playback onToggleExpand={() => setIsExpanded((v) => !v)} />}
-          </div>
+      <div className={styles.app}>
+        <div className={styles.header_wrapper}>
+          <Link to={"/"} className={styles.brand}>
+            Spotify / alt player
+          </Link>
+          <UserProfilePreview />
         </div>
-        <BigPlayback isExpanded={isExpanded} onToggleExpand={() => setIsExpanded((v) => !v)} />
+        <div className={styles.app_content}>
+          <Outlet />
+        </div>
+        <div className={styles.playback_wrapper}>
+          {!isExpanded && <Playback onToggleExpand={() => setIsExpanded((v) => !v)} />}
+        </div>
       </div>
-    </ThemeProvider>
+      <BigPlayback isExpanded={isExpanded} onToggleExpand={() => setIsExpanded((v) => !v)} />
+    </div>
   );
 }

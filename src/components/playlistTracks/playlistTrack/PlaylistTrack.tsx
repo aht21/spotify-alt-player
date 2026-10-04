@@ -23,7 +23,7 @@ interface Props {
   isActive: boolean;
 }
 
-// TODO: сделать прокручивание названия трека и артистов
+// TODO: fix save marker
 
 const PlaylistTrack = ({
   num,

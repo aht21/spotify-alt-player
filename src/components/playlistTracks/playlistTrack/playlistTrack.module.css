@@ -4,6 +4,7 @@
   padding: 0.5rem 0 0.5rem 0;
   border-radius: 1rem;
   color: rgba(255, 255, 255, 0.6);
+  transition: 0.3s;
 }
 
 .track:hover {
@@ -89,9 +90,6 @@
   display: flex;
   white-space: nowrap;
   flex-wrap: nowrap;
-  /* transition: var(--duration_artist) linear;
-  padding-right: 100%;
-  transform: translateX(0); */
 }
 
 .artist {
